@@ -1,7 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 
 class OnBoardingScreen extends StatefulWidget {
+  static const String id = 'onboarding_screen';
   const OnBoardingScreen({super.key});
 
   @override
@@ -11,6 +15,7 @@ class OnBoardingScreen extends StatefulWidget {
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   final PageController _pageController = PageController();
   int activePage = 0;
+  bool isProgressVisible = true;
   List<String> images = [
     'images/slider_image_1.png',
     'images/slider_image_2.png',
@@ -22,7 +27,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     'To Infinity and Beyond'
   ];
   List<String> subTitles = [
-    'Get ready to have some fun with Rick and Morty',
+    'Get ready to have some\nfun with Rick and Morty',
     'Welcome to the Rick\nand Morty universe',
     'Explore the multiverse\nwith Rick and Morty'
   ];
@@ -40,7 +45,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       }
       _pageController
           .animateToPage(nextPage,
-              duration: const Duration(seconds: 1), curve: Curves.linear)
+              duration: const Duration(seconds: 2), curve: Curves.easeInOut)
           .then((_) => _animateSlider());
     });
   }
@@ -98,6 +103,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               ),
                               Text(
                                 titles[activePage],
+                                textAlign: TextAlign.center,
                                 style: context.textTheme.titleLarge
                                     ?.copyWith(fontWeight: FontWeight.w400),
                               ),
@@ -106,6 +112,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               ),
                               Text(
                                 subTitles[activePage],
+                                textAlign: TextAlign.center,
                                 style: context.textTheme.bodyLarge,
                               ),
                             ],
@@ -124,10 +131,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text(
-                          'Skip',
-                          style: context.textTheme.titleMedium
-                              ?.copyWith(fontWeight: FontWeight.w400),
+                        child: TextButton(
+                          onPressed: () {
+                            navigateOnLogin(context);
+                          },
+                          child: Text('Skip',
+                              style: context.textTheme.titleMedium
+                                  ?.copyWith(fontWeight: FontWeight.w400)),
                         ),
                       ),
                       const Spacer(),
@@ -135,27 +145,33 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                         alignment: Alignment.centerRight,
                         child: Stack(alignment: Alignment.center, children: [
                           FloatingActionButton(
-                            onPressed: activePage == images.length - 1
-                                ? () {
-                                    //TODO: navigate on login screen
-                                  }
-                                : null,
+                            onPressed: () {
+                              log('on click');
+                              navigateOnLogin(context);
+                            },
                             child: Icon(
                               Icons.arrow_forward,
-                              color: activePage == images.length - 1
+                              color: !isProgressVisible
                                   ? context.colorScheme.onPrimary
                                   : context.colorScheme.onPrimary
                                       .withAlpha(100),
                             ),
                           ),
-                          TweenAnimationBuilder<double>(
-                            tween: Tween<double>(begin: 0.0, end: 1),
-                            duration: const Duration(milliseconds: 6000),
-                            builder: (context, value, _) =>
-                                CircularProgressIndicator(
-                              value: value,
-                            ),
-                          )
+                          Visibility(
+                              visible: isProgressVisible,
+                              child: TweenAnimationBuilder<double>(
+                                tween: Tween<double>(begin: 0.0, end: 1),
+                                duration: const Duration(milliseconds: 8000),
+                                builder: (context, value, _) =>
+                                    CircularProgressIndicator(
+                                  value: value,
+                                ),
+                                onEnd: () {
+                                  setState(() {
+                                    isProgressVisible = false;
+                                  });
+                                },
+                              ))
                         ]),
                       )
                     ],
@@ -166,4 +182,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       ),
     ));
   }
+}
+
+void navigateOnLogin(BuildContext context) {
+  Navigator.of(context).pushReplacementNamed(LoginScreen.id);
 }

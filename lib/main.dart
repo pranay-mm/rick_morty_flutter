@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 
 import 'features/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
@@ -51,6 +52,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
+      routes: {
+        OnBoardingScreen.id: (context) => const OnBoardingScreen(),
+        LoginScreen.id: (context) => const LoginScreen(),
+      },
       home: const OnBoardingScreen(),
     );
   }
