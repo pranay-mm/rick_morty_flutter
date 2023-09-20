@@ -139,7 +139,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: context.colorScheme.onPrimary),
+                      backgroundColor: context.colorScheme.onPrimary,
+                      disabledBackgroundColor:
+                          context.colorScheme.onPrimary.withAlpha(100)),
                   onPressed:
                       !(formField.password.isValid && formField.email.isValid)
                           ? null
