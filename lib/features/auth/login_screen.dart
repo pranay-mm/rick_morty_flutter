@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rick_morty_flutter/core/constants.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
+import 'package:rick_morty_flutter/features/auth/provider/form/auth_form_provider.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const String id = 'login_screen';
 
   const LoginScreen({super.key});
@@ -11,113 +14,158 @@ class LoginScreen extends StatefulWidget {
   LoginScreenState createState() => LoginScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
-  bool _isShowing = false;
-  String? email;
-  String? password;
+class LoginScreenState extends ConsumerState<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    ref.listen(authNotifierProvider, ((previous, next) {
+      next.maybeWhen(
+        orElse: () => null,
+        authenticated: (user) {
+          //TODO: navigate to dashboard screen
+        },
+        unauthenticated: (message) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(message!),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+        },
+      );
+    }));
+
+    final emailField = ref.watch(loginFormNotifierProvider).form.email;
+    final passwordField = ref.watch(loginFormNotifierProvider).form.password;
+    final formField = ref.watch(loginFormNotifierProvider).form;
     return Scaffold(
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
-        inAsyncCall: _isShowing,
+        opacity: 0.5,
+        progressIndicator:
+            CircularProgressIndicator(color: context.colorScheme.onPrimary),
+        inAsyncCall: ref
+            .watch(authNotifierProvider)
+            .maybeWhen(orElse: () => false, loading: () => true),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Flexible(
-                child: SizedBox(
-                  height: 200.0,
-                  child: Image.asset('images/rick_and_morty_auth_bg_2.png'),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Flexible(
+                  child: SizedBox(
+                    height: 200.0,
+                    child: Image.asset('images/rick_and_morty_auth_bg_2.png'),
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: context.height * 0.02,
-              ),
-              Text(
-                textAlign: TextAlign.center,
-                'Authentication',
-                style: context.textTheme.titleLarge
-                    ?.copyWith(fontWeight: FontWeight.w400),
-              ),
-              SizedBox(
-                height: context.height * 0.01,
-              ),
-              Text(
-                textAlign: TextAlign.center,
-                'Pickle Rick is the only one who can crack your password. So don’t worry, and enter your credentials.',
-                style: context.textTheme.bodyMedium?.copyWith(),
-              ),
-              const SizedBox(
-                height: 48.0,
-              ),
-              TextField(
-                keyboardType: TextInputType.emailAddress,
-                onChanged: (value) {
-                  email = value;
-                },
-                decoration: kTextFieldDecoration.copyWith(
-                    hintStyle: context.textTheme.bodyMedium,
-                    focusColor: context.colorScheme.onPrimary,
-                    prefixIcon: const Icon(Icons.email_outlined),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.cancel_outlined),
-                      onPressed: () {},
-                    ),
-                    labelText: 'Email',
-                    labelStyle: TextStyle(color: context.colorScheme.onPrimary),
-                    helperText: 'It\'s the key to your portal gun!'),
-              ),
-              const SizedBox(
-                height: 18.0,
-              ),
-              TextField(
-                  obscureText: true,
+                SizedBox(
+                  height: context.height * 0.02,
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  'Authentication',
+                  style: context.textTheme.titleLarge
+                      ?.copyWith(fontWeight: FontWeight.w400),
+                ),
+                SizedBox(
+                  height: context.height * 0.01,
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  'Pickle Rick is the only one who can crack your password. So don’t worry, and enter your credentials.',
+                  style: context.textTheme.bodyMedium?.copyWith(),
+                ),
+                const SizedBox(
+                  height: 48.0,
+                ),
+                TextFormField(
+                  keyboardType: TextInputType.emailAddress,
+                  controller: emailController,
                   onChanged: (value) {
-                    password = value;
+                    ref
+                        .read(loginFormNotifierProvider.notifier)
+                        .setEmail(value);
                   },
                   decoration: kTextFieldDecoration.copyWith(
+                      errorText: emailField.errorMessage,
                       hintStyle: context.textTheme.bodyMedium,
-                      prefixIcon: const Icon(Icons.edit_outlined),
+                      focusColor: context.colorScheme.onPrimary,
+                      prefixIcon: const Icon(Icons.email_outlined),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.cancel_outlined),
-                        onPressed: () {},
+                        onPressed: () {
+                          emailController.text = '';
+                        },
                       ),
-                      labelText: 'Password',
+                      labelText: 'Email',
                       labelStyle:
                           TextStyle(color: context.colorScheme.onPrimary),
-                      helperText:
-                          'Your password must be at least 9 dimensions long!')),
-              const SizedBox(
-                height: 24.0,
-              ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                    backgroundColor: context.colorScheme.onPrimary),
-                onPressed: () async {
-                  setState(() {
-                    _isShowing = true;
-                  });
-                  
-                },
-                child: Text(
-                  'Authentication',
-                  style: TextStyle(
-                      color: context.colorScheme.onSecondaryContainer),
+                      helperText: 'It\'s the key to your portal gun!'),
                 ),
-              ),
-              SizedBox(
-                height: context.height * 0.1,
-              ),
-              Text(
-                textAlign: TextAlign.center,
-                'Note: If no account exists, one will be created for you',
-                style: context.textTheme.bodyMedium
-                    ?.copyWith(color: context.colorScheme.onPrimary),
-              ),
-            ],
+                const SizedBox(
+                  height: 18.0,
+                ),
+                TextFormField(
+                    controller: passwordController,
+                    obscureText: true,
+                    onChanged: (value) {
+                      ref
+                          .read(loginFormNotifierProvider.notifier)
+                          .setPassword(value);
+                    },
+                    decoration: kTextFieldDecoration.copyWith(
+                        errorText: passwordField.errorMessage,
+                        hintStyle: context.textTheme.bodyMedium,
+                        prefixIcon: const Icon(Icons.edit_outlined),
+                        suffixIcon: IconButton(
+                          icon: const Icon(Icons.cancel_outlined),
+                          onPressed: () {
+                            passwordController.text = '';
+                          },
+                        ),
+                        labelText: 'Password',
+                        labelStyle:
+                            TextStyle(color: context.colorScheme.onPrimary),
+                        helperText:
+                            'Your password must be at least 9 dimensions long!')),
+                const SizedBox(
+                  height: 24.0,
+                ),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: context.colorScheme.onPrimary),
+                  onPressed:
+                      !(formField.password.isValid && formField.email.isValid)
+                          ? null
+                          : () async {
+                              ref.read(authNotifierProvider.notifier).login(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                  );
+                            },
+                  child: Text(
+                    'Authentication',
+                    style: TextStyle(
+                        color: context.colorScheme.onSecondaryContainer),
+                  ),
+                ),
+                SizedBox(
+                  height: context.height * 0.1,
+                ),
+                Text(
+                  textAlign: TextAlign.center,
+                  'Note: If no account exists, one will be created for you',
+                  style: context.textTheme.bodyMedium
+                      ?.copyWith(color: context.colorScheme.onPrimary),
+                ),
+              ],
+            ),
           ),
         ),
       ),
