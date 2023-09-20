@@ -3,6 +3,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
+import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
+import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
 
 import 'features/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
@@ -56,6 +58,8 @@ class MyApp extends StatelessWidget {
       routes: {
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
+        DashboardPage.id: (context) => const DashboardPage(),
+        SettingsScreen.id: (context) => const SettingsScreen(),
       },
       home: const OnBoardingScreen(),
     );
