@@ -5,6 +5,7 @@ import 'package:rick_morty_flutter/core/constants.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
 import 'package:rick_morty_flutter/features/auth/provider/form/auth_form_provider.dart';
+import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const String id = 'login_screen';
@@ -25,7 +26,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
-          //TODO: navigate to dashboard screen
+          Navigator.of(context).pushReplacementNamed(DashboardPage.id);
         },
         unauthenticated: (message) {
           ScaffoldMessenger.of(context).showSnackBar(
