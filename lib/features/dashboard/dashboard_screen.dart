@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/characters/favourite/character_favourite_screen.dart';
 import 'package:rick_morty_flutter/features/characters/list/character_list_screen.dart';
+import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
   static const String id = 'dashboard_screen';
@@ -34,9 +35,16 @@ class _TabsScreenState extends ConsumerState<DashboardPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: context.colorScheme.surfaceVariant,
-        title: Center(child: Text(activePageTitle,)),
+        title: Center(
+            child: Text(
+          activePageTitle,
+        )),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.settings))
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(SettingsScreen.id);
+              },
+              icon: const Icon(Icons.settings))
         ],
       ),
       body: bodyWidget,

@@ -1,18 +1,21 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 
-class OnBoardingScreen extends StatefulWidget {
+import '../../gen/assets.gen.dart';
+
+class OnBoardingScreen extends ConsumerStatefulWidget {
   static const String id = 'onboarding_screen';
   const OnBoardingScreen({super.key});
 
   @override
-  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+  ConsumerState<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> {
+class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
   final PageController _pageController = PageController();
   int activePage = 0;
   bool isProgressVisible = true;
@@ -65,10 +68,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   SizedBox(
                     height: context.height * 0.03,
                   ),
-                  Image.asset(
-                    'images/rick_and_morty_auth_bg.png',
-                    width: context.width * 0.6,
-                  ),
+                  Assets.images.rickAndMortyAuthBg
+                      .image(width: context.width * 0.6),
                   SizedBox(
                     height: context.height * 0.03,
                   ),
