@@ -31,7 +31,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
-          pref.isUserLoggedIn=true;
+          pref.isUserLoggedIn = true;
           Navigator.of(context).pushReplacementNamed(DashboardPage.id);
         },
         unauthenticated: (message) {

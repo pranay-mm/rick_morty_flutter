@@ -3,7 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 const String _kUserLoggedInKey = 'isUserLoggedIn';
 const String _kThemFlagKey = 'themeFlag';
-const String _kOnBoardingShowKey='onboarding_shown';
+const String _kOnBoardingShowKey = 'onboarding_shown';
 
 class SharedPreferencesService {
   static SharedPreferencesService? _instance;
@@ -19,9 +19,8 @@ class SharedPreferencesService {
     return _instance!;
   }
 
-
   // Persist and retrieve onboarding shown flag value
-  bool get isOnBoardingShown=> _getData(_kOnBoardingShowKey) ?? false;
+  bool get isOnBoardingShown => _getData(_kOnBoardingShowKey) ?? false;
   set isOnBoardingShown(bool value) => _saveData(_kOnBoardingShowKey, value);
 
   // Persist and retrieve user login flag value
