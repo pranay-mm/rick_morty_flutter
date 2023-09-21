@@ -89,26 +89,24 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          icon: const Icon(Icons.phone_android),
           title: const Text('Confirm Sign Out'),
           content: const Text(
             'Are you sure you want to sign out of the app? Tap on ‘Sign Out’ to confirm.',
           ),
           actions: <Widget>[
             TextButton(
-              style: TextButton.styleFrom(
-                textStyle: Theme.of(context).textTheme.labelLarge,
-              ),
-              child: const Text('Cancel'),
+              child: Text('Cancel',
+                  style: context.textTheme.labelLarge
+                      ?.copyWith(color: context.colorScheme.primary)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              style: TextButton.styleFrom(
-                textStyle: context.textTheme.labelLarge
-                    ?.copyWith(color: context.colorScheme.error),
-              ),
-              child: const Text('Sign Out'),
+              child: Text('Sign Out',
+                  style: context.textTheme.labelLarge
+                      ?.copyWith(color: context.colorScheme.error)),
               onPressed: () {
                 ref.read(authNotifierProvider.notifier).logOut();
                 Navigator.pop(context);
