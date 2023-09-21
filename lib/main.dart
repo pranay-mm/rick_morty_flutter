@@ -1,7 +1,9 @@
+import 'package:data/service/shared_pref_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
@@ -12,7 +14,7 @@ import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configAppInjection('debug');
+  await configAppInjection('debug');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final pref = GetIt.I.get<SharedPreferencesService>();
     return MaterialApp(
       title: 'Rick and Morty',
       debugShowCheckedModeBanner: false,
@@ -58,14 +61,16 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      themeMode: ThemeMode.system,
+      themeMode: pref.themeFlagKey ? ThemeMode.dark : ThemeMode.light,
       routes: {
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
         DashboardPage.id: (context) => const DashboardPage(),
         SettingsScreen.id: (context) => const SettingsScreen(),
       },
-      home: const OnBoardingScreen(),
+      home: !pref.isOnBoardingShown
+          ? const OnBoardingScreen()
+          : (pref.isUserLoggedIn ? const DashboardPage() : const LoginScreen()),
     );
   }
 }

@@ -1,5 +1,7 @@
+import 'package:data/service/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
@@ -13,10 +15,9 @@ class SettingsScreen extends ConsumerStatefulWidget {
 }
 
 class _SettingsScreenState extends ConsumerState<SettingsScreen> {
-  bool isDarkMode = false; // TODO: get it from preferance
-
   @override
   Widget build(BuildContext context) {
+    final pref = GetIt.I.get<SharedPreferencesService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
@@ -29,15 +30,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12))),
               tileColor: context.colorScheme.primaryContainer,
-              leading: isDarkMode
+              leading: pref.themeFlagKey
                   ? const Icon(Icons.dark_mode_outlined)
                   : const Icon(Icons.light_mode_outlined),
               trailing: Switch(
-                  value: isDarkMode,
+                  value: pref.themeFlagKey,
                   onChanged: (value) {
                     setState(() {
-                      isDarkMode = !isDarkMode;
-                      //TODO: implement storing flag in preferance and update app ui
+                      pref.themeFlagKey = value;
                     });
                   }),
               title: Text(
@@ -46,7 +46,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                     color: Theme.of(context).colorScheme.onBackground),
               ),
               subtitle: Text(
-                'Dark Mode',
+                pref.themeFlagKey ? 'Dark Mode' : 'Light Mode',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.onBackground),
@@ -85,6 +85,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   }
 
   Future<void> _dialogBuilder(BuildContext context, WidgetRef ref) {
+    final pref = GetIt.I.get<SharedPreferencesService>();
+
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -98,7 +100,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             TextButton(
               child: Text('Cancel',
                   style: context.textTheme.labelLarge
-                      ?.copyWith(color: context.colorScheme.primary)),
+                      ?.copyWith(color: context.colorScheme.onPrimary)),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -108,6 +110,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: context.textTheme.labelLarge
                       ?.copyWith(color: context.colorScheme.error)),
               onPressed: () {
+                pref.isUserLoggedIn = false;
+                pref.isOnBoardingShown = false;
                 ref.read(authNotifierProvider.notifier).logOut();
                 Navigator.pop(context);
                 Navigator.of(context)

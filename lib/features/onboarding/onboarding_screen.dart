@@ -1,7 +1,9 @@
 import 'dart:developer';
 
+import 'package:data/service/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 
@@ -186,5 +188,7 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
 }
 
 void navigateOnLogin(BuildContext context) {
+  final pref = GetIt.I.get<SharedPreferencesService>();
+  pref.isOnBoardingShown = true;
   Navigator.of(context).pushReplacementNamed(LoginScreen.id);
 }

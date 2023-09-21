@@ -1,5 +1,7 @@
+import 'package:data/service/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rick_morty_flutter/core/constants.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
@@ -24,10 +26,12 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
   final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final pref = GetIt.I.get<SharedPreferencesService>();
     ref.listen(authNotifierProvider, ((previous, next) {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
+          pref.isUserLoggedIn=true;
           Navigator.of(context).pushReplacementNamed(DashboardPage.id);
         },
         unauthenticated: (message) {
