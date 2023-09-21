@@ -5,12 +5,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
+import 'package:rick_morty_flutter/injectable_config.dart';
 
 import 'features/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  configAppInjection('debug');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
