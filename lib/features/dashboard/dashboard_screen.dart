@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
-import 'package:rick_morty_flutter/features/characters/favourite/character_favourite_screen.dart';
-import 'package:rick_morty_flutter/features/characters/list/character_list_screen.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/favourite/character_favourite_screen.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
