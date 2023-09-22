@@ -5,17 +5,16 @@ import 'package:retrofit/retrofit.dart';
 
 part 'rickmorty_api_client.g.dart';
 
-const String BASE_URL = 'https://rickandmortyapi.com/api/';
+const String baseURL = 'https://rickandmortyapi.com/api/';
 
 @injectable
-@RestApi(baseUrl: BASE_URL)
+@RestApi(baseUrl: baseURL)
 abstract class RickMortyApiClient {
   @factoryMethod
   factory RickMortyApiClient(Dio dio, {String baseUrl}) = _RickMortyApiClient;
 
   @GET("/character")
-  @DioResponseType(ResponseType.json)
-  Future<HttpResponse<List<DTCharactersList>>> getCharactersList(
-    @Query("page") String page,
+  Future<HttpResponse<DTCharactersList>> getCharactersList(
+    @Query("page") int page,
   );
 }
