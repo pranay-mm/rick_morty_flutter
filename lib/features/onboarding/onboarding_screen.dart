@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
+import 'package:rick_morty_flutter/generated/l10n.dart';
 
 import '../../gen/assets.gen.dart';
 
@@ -27,14 +28,14 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
     'images/slider_image_3.png',
   ];
   List<String> titles = [
-    'Get Schwifty',
-    'Wubba Lubba Dub Dub',
-    'To Infinity and Beyond'
+    S.current.titles0,
+    S.current.titles1,
+    S.current.titles2,
   ];
   List<String> subTitles = [
-    'Get ready to have some\nfun with Rick and Morty',
-    'Welcome to the Rick\nand Morty universe',
-    'Explore the multiverse\nwith Rick and Morty'
+    S.current.subtitles0,
+    S.current.subtitles1,
+    S.current.subtitles2,
   ];
   @override
   void initState() {

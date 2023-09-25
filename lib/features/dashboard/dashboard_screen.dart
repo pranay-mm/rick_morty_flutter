@@ -4,6 +4,7 @@ import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/favourite/character_favourite_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
+import 'package:rick_morty_flutter/generated/l10n.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
   static const String id = 'dashboard_screen';
@@ -16,7 +17,7 @@ class DashboardPage extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<DashboardPage> {
   int selectedIndex = 0;
-  var activePageTitle = 'Category';
+  var activePageTitle = S.current.titleTabCharFavList;
 
   void _selectPage(int index) {
     setState(() {
@@ -26,11 +27,12 @@ class _TabsScreenState extends ConsumerState<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    //S.load(const Locale('es')); to load localization manually
     Widget bodyWidget = const CharacterListScreen();
-    activePageTitle = 'Select Character';
+    activePageTitle = S.current.titleTabCharList;
     if (selectedIndex == 1) {
       bodyWidget = const CharacterFavouriteListScreen();
-      activePageTitle = 'Favourites';
+      activePageTitle = S.current.titleTabCharFavList;
     }
     return Scaffold(
       appBar: AppBar(
@@ -50,16 +52,16 @@ class _TabsScreenState extends ConsumerState<DashboardPage> {
       body: bodyWidget,
       bottomNavigationBar: NavigationBar(
         selectedIndex: selectedIndex,
-        destinations: const <Widget>[
+        destinations: <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.person),
-            icon: Icon(Icons.person_outlined),
-            label: 'Characters',
+            selectedIcon: const Icon(Icons.person),
+            icon: const Icon(Icons.person_outlined),
+            label: S.of(context).tabLableCharacters,
           ),
           NavigationDestination(
-            selectedIcon: Icon(Icons.star),
-            icon: Icon(Icons.star_outline),
-            label: 'Favourite',
+            selectedIcon: const Icon(Icons.star),
+            icon: const Icon(Icons.star_outline),
+            label: S.of(context).tabLableFavorite,
           ),
         ],
         onDestinationSelected: _selectPage,

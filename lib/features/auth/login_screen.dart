@@ -8,6 +8,7 @@ import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
 import 'package:rick_morty_flutter/features/auth/provider/form/auth_form_provider.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
+import 'package:rick_morty_flutter/generated/l10n.dart';
 
 import '../../gen/assets.gen.dart';
 
@@ -76,7 +77,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Text(
                   textAlign: TextAlign.center,
-                  'Authentication',
+                  S.of(context).authentication,
                   style: context.textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.w400),
                 ),
@@ -85,7 +86,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Text(
                   textAlign: TextAlign.center,
-                  'Pickle Rick is the only one who can crack your password. So don’t worry, and enter your credentials.',
+                  S.of(context).authenticationInfo,
                   style: context.textTheme.bodyMedium?.copyWith(),
                 ),
                 const SizedBox(
@@ -110,10 +111,10 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           emailController.text = '';
                         },
                       ),
-                      labelText: 'Email',
+                      labelText: S.of(context).email,
                       labelStyle:
                           TextStyle(color: context.colorScheme.onPrimary),
-                      helperText: 'It\'s the key to your portal gun!'),
+                      helperText: S.of(context).emailHelperText),
                 ),
                 const SizedBox(
                   height: 18.0,
@@ -127,20 +128,20 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           .setPassword(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
-                        errorText: passwordField.errorMessage,
-                        hintStyle: context.textTheme.bodyMedium,
-                        prefixIcon: const Icon(Icons.edit_outlined),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.cancel_outlined),
-                          onPressed: () {
-                            passwordController.text = '';
-                          },
-                        ),
-                        labelText: 'Password',
-                        labelStyle:
-                            TextStyle(color: context.colorScheme.onPrimary),
-                        helperText:
-                            'Your password must be at least 9 dimensions long!')),
+                      errorText: passwordField.errorMessage,
+                      hintStyle: context.textTheme.bodyMedium,
+                      prefixIcon: const Icon(Icons.edit_outlined),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.cancel_outlined),
+                        onPressed: () {
+                          passwordController.text = '';
+                        },
+                      ),
+                      labelText: S.of(context).password,
+                      labelStyle:
+                          TextStyle(color: context.colorScheme.onPrimary),
+                      helperText: S.of(context).passwordHelperText,
+                    )),
                 const SizedBox(
                   height: 24.0,
                 ),
@@ -159,7 +160,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                   );
                             },
                   child: Text(
-                    'Authentication',
+                    S.of(context).authentication,
                     style: TextStyle(
                         color: context.colorScheme.onSecondaryContainer),
                   ),
@@ -169,7 +170,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Text(
                   textAlign: TextAlign.center,
-                  'Note: If no account exists, one will be created for you',
+                  S.of(context).authNote,
                   style: context.textTheme.bodyMedium
                       ?.copyWith(color: context.colorScheme.onPrimary),
                 ),

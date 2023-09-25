@@ -8,7 +8,8 @@ import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
 import 'package:rick_morty_flutter/injectable_config.dart';
-
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/l10n.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
 
@@ -29,6 +30,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final pref = GetIt.I.get<SharedPreferencesService>();
     return MaterialApp(
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       title: 'Rick and Morty',
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
