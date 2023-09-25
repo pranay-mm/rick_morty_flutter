@@ -1,0 +1,19 @@
+{
+    "titleTabCharList": "Select Character",
+    "titleTabCharFavList": "Favourites",
+    "tabLableCharacters": "Characters",
+    "tabLableFavorite": "Favourite",
+    "authentication": "Authentication",
+    "authenticationInfo": "Pickle Rick is the only one who can crack your password. So don’t worry, and enter your credentials.",
+    "email": "Email",
+    "emailHelperText": "It's the key to your portal gun!",
+    "password": "Password",
+    "passwordHelperText": "Your password must be at least 9 dimensions long!",
+    "authNote": "Note: If no account exists, one will be created for you",
+    "titles0": "Get Schwifty",
+    "titles1": "Wubba Lubba Dub Dub",
+    "titles2": "To Infinity and Beyond",
+    "subtitles0": "Get ready to have some\nfun with Rick and Morty",
+    "subtitles1": "Welcome to the Rick\nand Morty universe",
+    "subtitles2": "Explore the multiverse\nwith Rick and Morty"
+}
