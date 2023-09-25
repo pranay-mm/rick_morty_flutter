@@ -10,11 +10,11 @@ import 'package:rick_morty_flutter/ui/model/ui_character.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character_mapper.dart';
 
 final charecterListProvider =
-    StateNotifierProvider<CharacterListNotifier, UiState>((ref) {
+    StateNotifierProvider<CharacterListNotifier, UiState<List<UiCharacter>>>((ref) {
   return CharacterListNotifier();
 });
 
-class CharacterListNotifier extends StateNotifier<UiState> {
+class CharacterListNotifier extends StateNotifier<UiState<List<UiCharacter>>> {
   CharacterListNotifier() : super(Initial()) {
     loadCharacters();
   }

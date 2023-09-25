@@ -8,7 +8,6 @@ class UiCharacter extends UIModel {
   Location? location;
   List<String>? episode;
 
-
   UiCharacter(this.id, this.name, this.image, this.status, this.species,
       this.gender, this.origin, this.location, this.episode);
 }

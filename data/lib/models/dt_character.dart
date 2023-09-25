@@ -20,7 +20,7 @@ class DTCharacter {
       _$DTCharacterFromJson(json);
 
   int? id;
-  String?  name, image, status, species, gender;
+  String? name, image, status, species, gender;
   final DTOrigin? origin;
   final DTLocation? location;
   final List<String>? episode;
