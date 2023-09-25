@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'dt_character.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class DTCharacter {
   DTCharacter(
     this.id,
@@ -19,34 +19,35 @@ class DTCharacter {
   factory DTCharacter.fromJson(Map<String, dynamic> json) =>
       _$DTCharacterFromJson(json);
 
-  String? id, name, image, status, species, gender;
+  int? id;
+  String?  name, image, status, species, gender;
   final DTOrigin? origin;
   final DTLocation? location;
-  final DTEpisode? episode;
+  final List<String>? episode;
 
   Map<String, dynamic> toJson() => _$DTCharacterToJson(this);
 }
 
 @JsonSerializable()
 class DTOrigin {
-  DTOrigin(this.id, this.name);
+  DTOrigin(this.url, this.name);
 
   factory DTOrigin.fromJson(Map<String, dynamic> json) =>
       _$DTOriginFromJson(json);
 
-  String? id, name;
+  String? url, name;
 
   Map<String, dynamic> toJson() => _$DTOriginToJson(this);
 }
 
 @JsonSerializable()
 class DTLocation {
-  DTLocation(this.id, this.name);
+  DTLocation(this.url, this.name);
 
   factory DTLocation.fromJson(Map<String, dynamic> json) =>
       _$DTLocationFromJson(json);
 
-  String? id, name;
+  String? url, name;
 
   Map<String, dynamic> toJson() => _$DTLocationToJson(this);
 }

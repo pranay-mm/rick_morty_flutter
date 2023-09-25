@@ -10,21 +10,22 @@ class Character {
     this.location,
     this.episode,
   );
-  final String? id, name, image, status, species, gender;
+  final int? id;
+  final String? name, image, status, species, gender;
 
   final Origin? origin;
   final Location? location;
-  final Episode? episode;
+  final List<String>? episode;
 }
 
 class Origin {
-  Origin(this.id, this.name);
-  final String? id, name;
+  Origin(this.url, this.name);
+  final String? url, name;
 }
 
 class Location {
-  Location(this.id, this.name);
-  final String? id, name;
+  Location(this.url, this.name);
+  final String? url, name;
 }
 
 class Episode {

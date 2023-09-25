@@ -5,7 +5,7 @@ class DTCharactersList {
 
   DTCharactersList.fromJson(Map<String, dynamic> map)
       : charactersList = List<DTCharacter>.from(
-          (map['characters']['results'].cast<Map<String, dynamic>>())
+          (map['results'].cast<Map<String, dynamic>>())
               .toList()
               .map(DTCharacter.fromJson),
         );
