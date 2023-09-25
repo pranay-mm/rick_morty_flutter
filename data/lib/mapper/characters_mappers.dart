@@ -37,9 +37,9 @@ class CharacterMapper extends EntityMapper<Character, DTCharacter> {
         model.status,
         model.species,
         model.gender,
-        DTOrigin(model.origin?.id, model.origin?.name),
-        DTLocation(model.location?.id, model.location?.name),
-        DTEpisode(model.episode?.episode));
+        DTOrigin(model.origin?.url, model.origin?.name),
+        DTLocation(model.location?.url, model.location?.name),
+        model.episode);
   }
 
   @override
@@ -51,9 +51,9 @@ class CharacterMapper extends EntityMapper<Character, DTCharacter> {
       entity.status,
       entity.species,
       entity.gender,
-      Origin(entity.origin?.id, entity.origin?.name),
-      Location(entity.location?.id, entity.location?.name),
-      Episode(entity.episode?.episode),
+      Origin(entity.origin?.url, entity.origin?.name),
+      Location(entity.location?.url, entity.location?.name),
+      entity.episode,
     );
   }
 }

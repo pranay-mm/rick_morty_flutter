@@ -9,7 +9,7 @@ class UiCharacterMapper extends UiModelMapper<CharacterList, UiCharacterList> {
   CharacterList mapToDomain(UiCharacterList modelItem) {
     return CharacterList(modelItem.characters
         .map((e) => Character(e.id, e.name, e.image, e.status, e.species,
-            e.gender, e.origin, e.location, e.episod))
+            e.gender, e.origin, e.location, e.episode))
         .toList());
   }
 

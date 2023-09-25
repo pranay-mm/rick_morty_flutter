@@ -11,7 +11,7 @@ const String baseURL = 'https://rickandmortyapi.com/api/';
 @RestApi(baseUrl: baseURL)
 abstract class RickMortyApiClient {
   @factoryMethod
-  factory RickMortyApiClient(Dio dio, {String baseUrl}) = _RickMortyApiClient;
+  factory RickMortyApiClient(Dio dio) = _RickMortyApiClient;
 
   @GET("/character")
   Future<HttpResponse<DTCharactersList>> getCharactersList(
