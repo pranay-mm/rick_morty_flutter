@@ -7,6 +7,8 @@ import 'package:rick_morty_flutter/ui/model/ui_character.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CharacterInfoPage extends ConsumerStatefulWidget {
+  static const String id = 'character_details_screen';
+
   const CharacterInfoPage({Key? key, required this.characterData})
       : super(key: key);
   final UiCharacter characterData;
@@ -16,7 +18,7 @@ class CharacterInfoPage extends ConsumerStatefulWidget {
 }
 
 class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
-  bool isLiked=false;
+  bool isFavorited = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -55,47 +57,32 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                       ),
                     ),
                     Positioned(
-                      bottom: 12,
-                      right: 24,
-                      child: LikeButton(
-                        isLiked: isLiked,
-                        size: 40,
-                        circleColor: const CircleColor(
-                          start: Color(0xffe8def8),
-                          end: Color(0xffe8def8),
-                        ),
-                        bubblesColor: const BubblesColor(
-                          dotPrimaryColor: Color(0xff6750A4),
-                          dotSecondaryColor: Color(0xffe8def8),
-                        ),
-                        likeBuilder: (bool isLiked) {
-                          return ClipRRect(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(100)),
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 40,
-                              width: 40,
-                              color: const Color(0xFFE8DEF8),
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isLiked=!isLiked;
-                                  });
-                                },
-                                icon: Icon(
-                                  isLiked ? Icons.star : Icons.star_border,
-                                  color: isLiked
-                                      ? const Color(0xff6750A4)
-                                      : const Color(0xFF000000),
-                                  size: 24,
-                                ),
+                        bottom: 12,
+                        right: 24,
+                        child: ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(100)),
+                          child: Container(
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: 40,
+                            color: const Color(0xFFE8DEF8),
+                            child: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  isFavorited = !isFavorited;
+                                });
+                              },
+                              icon: Icon(
+                                isFavorited ? Icons.star : Icons.star_border,
+                                color: isFavorited
+                                    ? const Color(0xff6750A4)
+                                    : const Color(0xFF000000),
+                                size: 24,
                               ),
                             ),
-                          );
-                        },
-                      ),
-                    )
+                          ),
+                        ))
                   ],
                 ),
                 getCharacterBioWidget(

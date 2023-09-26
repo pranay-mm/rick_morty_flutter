@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_screen.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
 import 'package:rick_morty_flutter/injectable_config.dart';
@@ -75,6 +77,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         DashboardPage.id: (context) => const DashboardPage(),
         SettingsScreen.id: (context) => const SettingsScreen(),
+        CharacterListScreen.id:(context) => const CharacterListScreen()
       },
       home: !pref.isOnBoardingShown
           ? const OnBoardingScreen()

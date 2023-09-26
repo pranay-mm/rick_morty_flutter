@@ -9,6 +9,8 @@ import 'package:rick_morty_flutter/models/ui_state.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character.dart';
 
 class CharacterListScreen extends ConsumerStatefulWidget {
+  static const String id = 'character_list_screen';
+
   const CharacterListScreen({super.key});
 
   @override
