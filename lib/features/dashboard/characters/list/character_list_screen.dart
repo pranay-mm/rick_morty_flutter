@@ -30,6 +30,7 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(charecterListProvider);
+    final readState = ref.read(charecterListProvider.notifier);
     log('State response:$state');
     if (state is Loading || state is Initial) {
       return const Align(
@@ -62,11 +63,9 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
                       onNotification: (scrollNotification) {
                         if (scrollNotification.metrics.pixels ==
                             scrollNotification.metrics.maxScrollExtent) {
-                          if (!ref
-                              .read(charecterListProvider.notifier)
-                              .isPageLoadInProgress) {
-                            ref.read(charecterListProvider.notifier).page++;
-                            ref.read(charecterListProvider.notifier)
+                          if (!readState.isPageLoadInProgress) {
+                            readState.page++;
+                            readState
                               ..loadCharacters()
                               ..isPageLoadInProgress = true;
                           }
