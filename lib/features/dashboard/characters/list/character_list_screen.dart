@@ -62,7 +62,14 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
                       onNotification: (scrollNotification) {
                         if (scrollNotification.metrics.pixels ==
                             scrollNotification.metrics.maxScrollExtent) {
-                          // TODO: load more
+                          if (!ref
+                              .read(charecterListProvider.notifier)
+                              .isPageLoadInProgress) {
+                            ref.read(charecterListProvider.notifier).page++;
+                            ref.read(charecterListProvider.notifier)
+                              ..loadCharacters()
+                              ..isPageLoadInProgress = true;
+                          }
                         }
                         return false;
                       },
