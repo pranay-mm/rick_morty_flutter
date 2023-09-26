@@ -34,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordHelperText": MessageLookupByLibrary.simpleMessage(
             "Your password must be at least 9 dimensions long!"),
+        "skip": MessageLookupByLibrary.simpleMessage("Skip"),
         "subtitles0": MessageLookupByLibrary.simpleMessage(
             "Get ready to have some\nfun with Rick and Morty"),
         "subtitles1": MessageLookupByLibrary.simpleMessage(

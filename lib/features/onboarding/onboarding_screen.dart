@@ -67,15 +67,13 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
               height: context.height * 0.85,
               width: context.width,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    height: context.height * 0.03,
+                    height: context.height * 0.01,
                   ),
                   Assets.images.rickAndMortyAuthBg
                       .image(width: context.width * 0.6),
-                  SizedBox(
-                    height: context.height * 0.03,
-                  ),
                   SizedBox(
                     width: context.width,
                     height: context.height * 0.65,
@@ -102,8 +100,8 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                                   ),
                                 ),
                               ),
-                              SizedBox(
-                                height: context.height * 0.03,
+                              const SizedBox(
+                                height: 22,
                               ),
                               Text(
                                 titles[activePage],
@@ -111,8 +109,8 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                                 style: context.textTheme.titleLarge
                                     ?.copyWith(fontWeight: FontWeight.w400),
                               ),
-                              SizedBox(
-                                height: context.height * 0.01,
+                              const SizedBox(
+                                height: 12,
                               ),
                               Text(
                                 subTitles[activePage],
@@ -133,51 +131,42 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextButton(
+                      TextButton(
+                        onPressed: () {
+                          navigateOnLogin(context);
+                        },
+                        child: Text(S.current.skip,
+                            style: context.textTheme.titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w400)),
+                      ),
+                      Stack(alignment: Alignment.center, children: [
+                        FloatingActionButton(
                           onPressed: () {
                             navigateOnLogin(context);
                           },
-                          child: Text('Skip',
-                              style: context.textTheme.titleMedium
-                                  ?.copyWith(fontWeight: FontWeight.w400)),
-                        ),
-                      ),
-                      const Spacer(),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Stack(alignment: Alignment.center, children: [
-                          FloatingActionButton(
-                            onPressed: () {
-                              log('on click');
-                              navigateOnLogin(context);
-                            },
-                            child: Icon(
-                              Icons.arrow_forward,
-                              color: !isProgressVisible
-                                  ? context.colorScheme.onPrimary
-                                  : context.colorScheme.onPrimary
-                                      .withAlpha(100),
-                            ),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            color: !isProgressVisible
+                                ? context.colorScheme.onPrimary
+                                : context.colorScheme.onPrimary.withAlpha(100),
                           ),
-                          Visibility(
-                              visible: isProgressVisible,
-                              child: TweenAnimationBuilder<double>(
-                                tween: Tween<double>(begin: 0.0, end: 1),
-                                duration: const Duration(milliseconds: 8000),
-                                builder: (context, value, _) =>
-                                    CircularProgressIndicator(
-                                  value: value,
-                                ),
-                                onEnd: () {
-                                  setState(() {
-                                    isProgressVisible = false;
-                                  });
-                                },
-                              ))
-                        ]),
-                      )
+                        ),
+                        Visibility(
+                            visible: isProgressVisible,
+                            child: TweenAnimationBuilder<double>(
+                              tween: Tween<double>(begin: 0.0, end: 1),
+                              duration: const Duration(milliseconds: 8000),
+                              builder: (context, value, _) =>
+                                  CircularProgressIndicator(
+                                value: value,
+                              ),
+                              onEnd: () {
+                                setState(() {
+                                  isProgressVisible = false;
+                                });
+                              },
+                            ))
+                      ])
                     ],
                   )),
             )
