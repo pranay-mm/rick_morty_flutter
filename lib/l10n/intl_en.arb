@@ -16,5 +16,12 @@
     "subtitles0": "Get ready to have some\nfun with Rick and Morty",
     "subtitles1": "Welcome to the Rick\nand Morty universe",
     "subtitles2": "Explore the multiverse\nwith Rick and Morty",
-    "skip":"Skip"
+    "skip":"Skip",
+    "gender":"Gender",
+    "status":"Status",
+    "species":"Species",
+    "origin":"Origin",
+    "episodes":"Episodes",
+    "location":"Location"
+    
 }

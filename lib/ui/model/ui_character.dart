@@ -10,6 +10,18 @@ class UiCharacter extends UIModel {
 
   UiCharacter(this.id, this.name, this.image, this.status, this.species,
       this.gender, this.origin, this.location, this.episode);
+
+  String episodesList() {
+    if (episode != null && episode?.isNotEmpty == true) {
+      return episode
+              ?.map((e) => e.substring(e.lastIndexOf('/') + 1))
+              .toList()
+              .join(',') ??
+          '';
+    } else {
+      return '';
+    }
+  }
 }
 
 class UiCharacterList extends UIModel {

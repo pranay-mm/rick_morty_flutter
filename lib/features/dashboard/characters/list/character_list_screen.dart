@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_item_widget.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_provider.dart';
 import 'package:rick_morty_flutter/models/ui_state.dart';
@@ -31,7 +32,6 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
   Widget build(BuildContext context) {
     final state = ref.watch(charecterListProvider);
     final readState = ref.read(charecterListProvider.notifier);
-    log('State response:$state');
     if (state is Loading || state is Initial) {
       return const Align(
         child: CircularProgressIndicator(),
@@ -86,7 +86,11 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
                           return CharacterItemWidget(
                             key: Key('characterItem:$index'),
                             callback: (characterId) {
-                              // Navigate to character information
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => CharacterInfoPage(
+                                          characterData: listItem[index])));
                             },
                             character: listItem[index],
                           );

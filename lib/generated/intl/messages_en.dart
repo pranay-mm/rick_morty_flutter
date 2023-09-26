@@ -31,10 +31,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailHelperText": MessageLookupByLibrary.simpleMessage(
             "It\'s the key to your portal gun!"),
+        "episodes": MessageLookupByLibrary.simpleMessage("Episodes"),
+        "gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "location": MessageLookupByLibrary.simpleMessage("Location"),
+        "origin": MessageLookupByLibrary.simpleMessage("Origin"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "passwordHelperText": MessageLookupByLibrary.simpleMessage(
             "Your password must be at least 9 dimensions long!"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "species": MessageLookupByLibrary.simpleMessage("Species"),
+        "status": MessageLookupByLibrary.simpleMessage("Status"),
         "subtitles0": MessageLookupByLibrary.simpleMessage(
             "Get ready to have some\nfun with Rick and Morty"),
         "subtitles1": MessageLookupByLibrary.simpleMessage(
