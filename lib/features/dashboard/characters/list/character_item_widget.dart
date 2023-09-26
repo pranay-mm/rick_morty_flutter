@@ -26,7 +26,7 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
       splashColor: Colors.transparent,
       onTap: () {
         setState(() {
-          isExpanded = !isExpanded;//TODO make it app wise state
+          isExpanded = !isExpanded; //TODO make it app wise state
         });
       },
       child: Column(
@@ -39,29 +39,55 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                   shape: RoundedRectangleBorder(borderRadius: borderRadius),
                   child: Column(
                     children: [
-                      Container(
-                        width: double.infinity,
-                        foregroundDecoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                colors: [
-                                  Colors.white.withOpacity(0.4),
-                                  Colors.black.withOpacity(0.67)
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius: borderRadius),
-                        child: ClipRRect(
-                          borderRadius: borderRadius,
-                          child: Hero(
-                            tag: widget.character!.id!,
-                            child: FadeInImage(
-                                fit: BoxFit.cover,
-                                height: 140,
-                                width: double.infinity,
-                                placeholder: MemoryImage(kTransparentImage),
-                                image: NetworkImage(widget.character!.image!)),
+                      Stack(
+                        alignment: Alignment.bottomLeft,
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            foregroundDecoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                    colors: [
+                                      Colors.white.withOpacity(0.4),
+                                      Colors.black.withOpacity(0.67)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter),
+                                borderRadius: borderRadius),
+                            child: ClipRRect(
+                              borderRadius: borderRadius,
+                              child: Hero(
+                                tag: widget.character!.id!,
+                                child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    height: 140,
+                                    width: double.infinity,
+                                    placeholder: MemoryImage(kTransparentImage),
+                                    image:
+                                        NetworkImage(widget.character!.image!)),
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 12.0, right: 12, bottom: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Visibility(
+                                    visible: !isExpanded,
+                                    child: Text(widget.character!.name!,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: context.textTheme.titleMedium
+                                            ?.copyWith(
+                                          color: Colors.white,
+                                        ))),
+                                Icon(isExpanded
+                                    ? Icons.arrow_drop_up
+                                    : Icons.arrow_drop_down)
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                       Visibility(
                         visible: isExpanded,
@@ -95,7 +121,7 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(widget.character!.species!,
+                                      Text(widget.character!.name!,
                                           overflow: TextOverflow.ellipsis,
                                           style: context.textTheme.bodyMedium
                                               ?.copyWith(
@@ -104,7 +130,7 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                                           )),
                                       Text(
                                         overflow: TextOverflow.ellipsis,
-                                        widget.character!.name!,
+                                        widget.character!.species!,
                                         style: context.textTheme.bodyMedium
                                             ?.copyWith(
                                                 color: context.colorScheme
