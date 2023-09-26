@@ -1,0 +1,1 @@
+const String tableCharacter='table_character';

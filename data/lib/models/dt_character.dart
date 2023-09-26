@@ -1,8 +1,11 @@
+import 'package:data/source/db/constants.dart';
+import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'dt_character.g.dart';
 
 @JsonSerializable(explicitToJson: true)
+@Entity(tableName: tableCharacter)
 class DTCharacter {
   DTCharacter(
     this.id,
@@ -19,9 +22,11 @@ class DTCharacter {
   factory DTCharacter.fromJson(Map<String, dynamic> json) =>
       _$DTCharacterFromJson(json);
 
+  @PrimaryKey()
   int? id;
   String? name, image, status, species, gender;
   final DTOrigin? origin;
+
   final DTLocation? location;
   final List<String>? episode;
 
