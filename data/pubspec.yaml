@@ -24,7 +24,6 @@ dependencies:
   json_serializable: ^6.6.1
   json_annotation: ^4.8.0
   floor: ^1.4.2
-  sqflite: ^2.3.0
 
 
 dev_dependencies:

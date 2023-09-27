@@ -1,1 +1,1 @@
-const String tableCharacter='table_character';
+const String tableCharacter = 'dtcharacter';

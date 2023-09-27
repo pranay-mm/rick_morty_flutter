@@ -55,7 +55,8 @@ dependencies:
     sdk: flutter
   intl: any
   like_button: ^2.0.5
-
+  floor: ^1.4.2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
