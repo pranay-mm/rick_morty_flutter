@@ -7,9 +7,10 @@ class UiCharacter extends UIModel {
   Origin? origin;
   Location? location;
   List<dynamic>? episode;
+  bool isFavorited;
 
   UiCharacter(this.id, this.name, this.image, this.status, this.species,
-      this.gender, this.origin, this.location, this.episode);
+      this.gender, this.origin, this.location, this.episode,this.isFavorited);
 
   String episodesList() {
     if (episode != null && episode?.isNotEmpty == true) {

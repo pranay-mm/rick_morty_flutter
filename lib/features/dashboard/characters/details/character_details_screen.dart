@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_provider.dart';
 import 'package:rick_morty_flutter/generated/l10n.dart';
+import 'package:rick_morty_flutter/models/ui_state.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class CharacterInfoPage extends ConsumerStatefulWidget {
   static const String id = 'character_details_screen';
 
-  const CharacterInfoPage({Key? key, required this.characterData})
-      : super(key: key);
-  final UiCharacter characterData;
+  const CharacterInfoPage({Key? key, required this.charId}) : super(key: key);
+  final int charId;
 
   @override
   ConsumerState<CharacterInfoPage> createState() => _CharacterInfoWidgetState();
@@ -21,83 +22,107 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
   bool isFavorited = false;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 12,
-                ),
-                Stack(
-                  alignment: Alignment.topLeft,
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.all(Radius.circular(16)),
-                      child: AspectRatio(
-                        aspectRatio: 1,
-                        child: Hero(
-                          tag: widget.characterData.id!,
+    final state = ref.watch(charecterDetailsProvider);
+    final isPageLoading =
+        ref.read(charecterDetailsProvider.notifier).isPageLoadInProgress;
+
+    if (state is Loading || state is Initial) {
+      return const Align(
+        child: CircularProgressIndicator(),
+      );
+    } else if (state is Failure) {
+      return Align(
+        child: Text((state as Failure).exception),
+      );
+    } else {
+      UiCharacter characterData = (state as Success).data as UiCharacter;
+      return SafeArea(
+        child: Scaffold(
+            backgroundColor: Colors.white,
+            body: SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Stack(
+                    alignment: Alignment.topLeft,
+                    children: [
+                      ClipRRect(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(16)),
+                        child: AspectRatio(
+                          aspectRatio: 1,
                           child: FadeInImage.memoryNetwork(
                             placeholder: kTransparentImage,
-                            image: widget.characterData.image!,
+                            image: characterData.image!,
                             fit: BoxFit.fill,
                           ),
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: BackButton(
-                        color: Colors.white,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: BackButton(
+                          color: Colors.white,
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
-                    ),
-                    Positioned(
-                        bottom: 12,
-                        right: 24,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(100)),
-                          child: Container(
-                            alignment: Alignment.center,
-                            height: 40,
-                            width: 40,
-                            color: const Color(0xFFE8DEF8),
-                            child: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  isFavorited = !isFavorited;
-                                });
-                              },
-                              icon: Icon(
-                                isFavorited ? Icons.star : Icons.star_border,
-                                color: isFavorited
-                                    ? const Color(0xff6750A4)
-                                    : const Color(0xFF000000),
-                                size: 24,
+                      Positioned(
+                          bottom: 12,
+                          right: 24,
+                          child: ClipRRect(
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(100)),
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 40,
+                              width: 40,
+                              color: const Color(0xFFE8DEF8),
+                              child: IconButton(
+                                onPressed: isPageLoading
+                                    ? null
+                                    : () {
+                                        setState(() {
+                                          ref
+                                              .read(charecterDetailsProvider
+                                                  .notifier)
+                                              .isPageLoadInProgress = true;
+                                          ref
+                                              .read(charecterDetailsProvider
+                                                  .notifier)
+                                              .updateCharacter();
+                                        });
+                                      },
+                                icon: Icon(
+                                  characterData.isFavorited
+                                      ? Icons.star
+                                      : Icons.star_border,
+                                  color: isFavorited
+                                      ? const Color(0xff6750A4)
+                                      : const Color(0xFF000000),
+                                  size: 24,
+                                ),
                               ),
                             ),
-                          ),
-                        ))
-                  ],
-                ),
-                getCharacterBioWidget(
-                  widget.characterData.name!,
-                  widget.characterData.gender ?? '',
-                  widget.characterData.origin?.name! ?? '',
-                  widget.characterData.location?.name ?? '',
-                  widget.characterData.status ?? '',
-                  widget.characterData.species ?? '',
-                  widget.characterData.episodesList(),
-                )
-              ],
-            ),
-          )),
-    );
+                          ))
+                    ],
+                  ),
+                  getCharacterBioWidget(
+                    characterData.name!,
+                    characterData.gender ?? '',
+                    characterData.origin?.name! ?? '',
+                    characterData.location?.name ?? '',
+                    characterData.status ?? '',
+                    characterData.species ?? '',
+                    characterData.episodesList(),
+                  )
+                ],
+              ),
+            )),
+      );
+    }
   }
 
   Widget getCharacterBioWidget(String name, String gender, String origin,

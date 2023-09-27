@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_provider.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_item_widget.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_provider.dart';
@@ -89,11 +90,12 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
                         return CharacterItemWidget(
                           key: Key('characterItem:$index'),
                           callback: (characterId) {
+                            ref.read(idProider.notifier).updateState(characterId);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (builder) => CharacterInfoPage(
-                                        characterData: listItem[index])));
+                                        charId: characterId)));
                           },
                           character: listItem[index],
                         );

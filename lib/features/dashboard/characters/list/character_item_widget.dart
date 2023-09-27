@@ -10,7 +10,7 @@ class CharacterItemWidget extends StatefulWidget {
     required this.callback,
   });
 
-  final void Function(String) callback;
+  final void Function(int) callback;
   final UiCharacter? character;
 
   @override
@@ -55,16 +55,13 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                                 borderRadius: borderRadius),
                             child: ClipRRect(
                               borderRadius: borderRadius,
-                              child: Hero(
-                                tag: widget.character!.id!,
-                                child: FadeInImage(
-                                    fit: BoxFit.cover,
-                                    height: 140,
-                                    width: double.infinity,
-                                    placeholder: MemoryImage(kTransparentImage),
-                                    image:
-                                        NetworkImage(widget.character!.image!)),
-                              ),
+                              child: FadeInImage(
+                                  fit: BoxFit.cover,
+                                  height: 140,
+                                  width: double.infinity,
+                                  placeholder: MemoryImage(kTransparentImage),
+                                  image:
+                                      NetworkImage(widget.character!.image!)),
                             ),
                           ),
                           Padding(
@@ -142,8 +139,7 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                                 FloatingActionButton(
                                   mini: true,
                                   onPressed: () {
-                                    widget.callback(
-                                        widget.character!.id.toString());
+                                    widget.callback(widget.character!.id!);
                                   },
                                   child: const Icon(Icons.arrow_forward),
                                 )

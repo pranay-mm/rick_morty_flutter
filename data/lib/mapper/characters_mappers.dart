@@ -39,7 +39,7 @@ class CharacterMapper extends EntityMapper<Character, DTCharacter> {
         model.gender,
         DTOrigin(model.origin?.url, model.origin?.name),
         DTLocation(model.location?.url, model.location?.name),
-        model.episode);
+        model.episode,model.isFavorited);
   }
 
   @override
@@ -53,7 +53,7 @@ class CharacterMapper extends EntityMapper<Character, DTCharacter> {
       entity.gender,
       Origin(entity.origin?.url, entity.origin?.name),
       Location(entity.location?.url, entity.location?.name),
-      entity.episode,
+      entity.episode,entity.isFavorited,
     );
   }
 }

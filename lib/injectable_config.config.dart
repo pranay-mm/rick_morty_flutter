@@ -25,6 +25,7 @@ extension GetItInjectableX on _i1.GetIt {
       environment,
       environmentFilter,
     );
+    gh.factory<_i3.UiCharacterListMapper>(() => _i3.UiCharacterListMapper());
     gh.factory<_i3.UiCharacterMapper>(() => _i3.UiCharacterMapper());
     return this;
   }

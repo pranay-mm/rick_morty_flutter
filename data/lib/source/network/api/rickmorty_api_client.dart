@@ -14,7 +14,7 @@ abstract class RickMortyApiClient {
   factory RickMortyApiClient(Dio dio) = _RickMortyApiClient;
 
   @GET("/character")
-  Future<HttpResponse<DTCharactersList>> getCharactersList(
+  Future<HttpResponse<String>> getCharactersList(
     @Query("page") int page,
   );
 }

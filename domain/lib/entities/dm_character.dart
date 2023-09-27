@@ -9,10 +9,11 @@ class Character {
     this.origin,
     this.location,
     this.episode,
+    this.isFavorited
   );
   final int? id;
   final String? name, image, status, species, gender;
-
+  final isFavorited;
   final Origin? origin;
   final Location? location;
   final List<dynamic>? episode;

@@ -22,7 +22,7 @@ Future<void> configAppDataInjection(String env) async {
   }, dependsOn: [CharactersDatabase]);
   GetIt.I.registerSingletonWithDependencies<CharactersRepository>(() {
     return CharactersRepositoryImpl(GetIt.I.get<RickMortyApiClient>(),
-        GetIt.I.get<CharacterListMapper>(), GetIt.I.get<CharacterDao>());
+        GetIt.I.get<CharacterListMapper>(), GetIt.I.get<CharacterDao>(),GetIt.I.get<CharacterMapper>());
   }, dependsOn: [
     CharacterDao,
   ]);

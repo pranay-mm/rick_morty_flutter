@@ -20,7 +20,7 @@ class CharacterListNotifier extends StateNotifier<UiState<List<UiCharacter>>> {
   CharacterListNotifier() : super(Initial()) {
     loadCharacters(false);
   }
-  final UiCharacterMapper _uiMapper = GetIt.I.get<UiCharacterMapper>();
+  final UiCharacterListMapper _uiMapper = GetIt.I.get<UiCharacterListMapper>();
   final GetRickMortyCharactersUseCase _getRickMortyCharactersUseCase =
       GetIt.I.get<GetRickMortyCharactersUseCase>();
   final CharacterDao charsDao = GetIt.I.get<CharacterDao>();

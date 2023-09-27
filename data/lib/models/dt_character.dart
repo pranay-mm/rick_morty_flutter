@@ -7,17 +7,8 @@ part 'dt_character.g.dart';
 @JsonSerializable(explicitToJson: true)
 @Entity(tableName: tableCharacter)
 class DTCharacter {
-  DTCharacter(
-    this.id,
-    this.name,
-    this.image,
-    this.status,
-    this.species,
-    this.gender,
-    this.origin,
-    this.location,
-    this.episode,
-  );
+  DTCharacter(this.id, this.name, this.image, this.status, this.species,
+      this.gender, this.origin, this.location, this.episode, this.isFavorited);
 
   factory DTCharacter.fromJson(Map<String, dynamic> json) =>
       _$DTCharacterFromJson(json);
@@ -29,6 +20,8 @@ class DTCharacter {
 
   final DTLocation? location;
   final List<dynamic>? episode;
+
+  final bool isFavorited;
 
   Map<String, dynamic> toJson() => _$DTCharacterToJson(this);
 }
