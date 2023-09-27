@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:data/source/db/character_dao.dart';
 import 'package:domain/entities/dm_character.dart';
 import 'package:domain/use_cases/get_character_usercase.dart';
 import 'package:domain/entities/api_response.dart' as api_response;
@@ -10,37 +11,36 @@ import 'package:rick_morty_flutter/ui/model/ui_character.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character_mapper.dart';
 
 final charecterListProvider =
-    StateNotifierProvider<CharacterListNotifier, UiState<List<UiCharacter>>>((ref) {
+    StateNotifierProvider<CharacterListNotifier, UiState<List<UiCharacter>>>(
+        (ref) {
   return CharacterListNotifier();
 });
 
 class CharacterListNotifier extends StateNotifier<UiState<List<UiCharacter>>> {
   CharacterListNotifier() : super(Initial()) {
-    loadCharacters();
+    loadCharacters(false);
   }
   final UiCharacterMapper _uiMapper = GetIt.I.get<UiCharacterMapper>();
   final GetRickMortyCharactersUseCase _getRickMortyCharactersUseCase =
       GetIt.I.get<GetRickMortyCharactersUseCase>();
+  final CharacterDao charsDao = GetIt.I.get<CharacterDao>();
   final List<UiCharacter> _charactersToDisplayInUi = [];
-  late bool _isFilterRequest = false;
 
   late String nameFilter = '';
   bool isPageLoadInProgress = false;
-  int page = 1;
+  // int page = 1;
 
   /// Load Rick & Morty characters
-  void loadCharacters() {
-    if (page == 1) {
+  void loadCharacters(bool forLoadMore) {
+    if (!forLoadMore) {
       state = Loading();
     }
-    _isFilterRequest = nameFilter.isNotEmpty;
+
     _getRickMortyCharactersUseCase.perform(
       handleResponse,
       error,
       complete,
-      CharacterListReqParams(
-        page: page,
-      ),
+      CharacterListReqParams(page: 0, isLoadMore: forLoadMore),
     );
   }
 
@@ -58,9 +58,6 @@ class CharacterListNotifier extends StateNotifier<UiState<List<UiCharacter>>> {
         final uiCharacters =
             _uiMapper.mapToPresentation(characters.data as CharacterList);
         if (uiCharacters.characters.isNotEmpty) {
-          if (_isFilterRequest) {
-            _charactersToDisplayInUi.clear();
-          }
           _charactersToDisplayInUi.addAll(uiCharacters.characters);
         }
         state = Success(data: _charactersToDisplayInUi);

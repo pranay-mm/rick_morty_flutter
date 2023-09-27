@@ -15,7 +15,7 @@ class Character {
 
   final Origin? origin;
   final Location? location;
-  final List<String>? episode;
+  final List<dynamic>? episode;
 }
 
 class Origin {

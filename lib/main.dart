@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final pref = GetIt.I.get<SharedPreferencesService>();
     return MaterialApp(
-      localizationsDelegates: [
+      localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
@@ -76,7 +76,7 @@ class MyApp extends StatelessWidget {
         LoginScreen.id: (context) => const LoginScreen(),
         DashboardPage.id: (context) => const DashboardPage(),
         SettingsScreen.id: (context) => const SettingsScreen(),
-        CharacterListScreen.id:(context) => const CharacterListScreen()
+        CharacterListScreen.id: (context) => const CharacterListScreen()
       },
       home: !pref.isOnBoardingShown
           ? const OnBoardingScreen()

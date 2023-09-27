@@ -28,7 +28,7 @@ class DTCharacter {
   final DTOrigin? origin;
 
   final DTLocation? location;
-  final List<String>? episode;
+  final List<dynamic>? episode;
 
   Map<String, dynamic> toJson() => _$DTCharacterToJson(this);
 }

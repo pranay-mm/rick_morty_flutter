@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailHelperText": MessageLookupByLibrary.simpleMessage(
             "It\'s the key to your portal gun!"),
         "episodes": MessageLookupByLibrary.simpleMessage("Episodes"),
+        "error_message": MessageLookupByLibrary.simpleMessage(
+            "Something went wrong! Please try again."),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "origin": MessageLookupByLibrary.simpleMessage("Origin"),

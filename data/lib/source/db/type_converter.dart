@@ -31,15 +31,15 @@ class DTLocationConverter extends TypeConverter<DTLocation?, String?> {
   }
 }
 
-class DTEpisodeConverter extends TypeConverter<List<String>?, String?> {
+class DTEpisodeConverter extends TypeConverter<List<dynamic>?, String?> {
   @override
-  List<String>? decode(String? databaseValue) {
+  List<dynamic>? decode(String? databaseValue) {
     if (databaseValue == null) return null;
-    return jsonDecode(databaseValue) as List<String>?;
+    return jsonDecode(databaseValue) as List<dynamic>?;
   }
 
   @override
-  String? encode(List<String>? value) {
+  String? encode(List<dynamic>? value) {
     return jsonEncode(value);
   }
 }

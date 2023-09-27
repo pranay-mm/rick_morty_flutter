@@ -2,5 +2,6 @@ import '../entities/api_response.dart';
 import '../entities/dm_character.dart';
 
 abstract class CharactersRepository {
-  Future<ApiResponse<CharacterList>> getRickAndMortyCharacters(int page);
+  Future<ApiResponse<CharacterList>> getRickAndMortyCharacters(int page,bool isLoadMore);
+  Stream<ApiResponse<CharacterList>> getListStream();
 }

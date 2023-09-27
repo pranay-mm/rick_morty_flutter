@@ -6,7 +6,7 @@ class UiCharacter extends UIModel {
   String? name, image, status, species, gender;
   Origin? origin;
   Location? location;
-  List<String>? episode;
+  List<dynamic>? episode;
 
   UiCharacter(this.id, this.name, this.image, this.status, this.species,
       this.gender, this.origin, this.location, this.episode);
