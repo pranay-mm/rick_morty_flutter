@@ -99,7 +99,7 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                                   characterData.isFavorited
                                       ? Icons.star
                                       : Icons.star_border,
-                                  color: isFavorited
+                                  color: characterData.isFavorited
                                       ? const Color(0xff6750A4)
                                       : const Color(0xFF000000),
                                   size: 24,

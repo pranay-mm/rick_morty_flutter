@@ -10,7 +10,7 @@ class UiCharacterListMapper
   CharacterList mapToDomain(UiCharacterList modelItem) {
     return CharacterList(modelItem.characters
         .map((e) => Character(e.id, e.name, e.image, e.status, e.species,
-            e.gender, e.origin, e.location, e.episode,e.isFavorited))
+            e.gender, e.origin, e.location, e.episode, e.isFavorited))
         .toList());
   }
 
@@ -18,7 +18,7 @@ class UiCharacterListMapper
   UiCharacterList mapToPresentation(CharacterList model) {
     return UiCharacterList(model.characterList
         .map((e) => UiCharacter(e.id, e.name, e.image, e.status, e.species,
-            e.gender, e.origin, e.location, e.episode,e.isFavorited))
+            e.gender, e.origin, e.location, e.episode, e.isFavorited))
         .toList());
   }
 }
@@ -36,7 +36,8 @@ class UiCharacterMapper extends UiModelMapper<Character, UiCharacter> {
         modelItem.gender,
         modelItem.origin,
         modelItem.location,
-        modelItem.episode,modelItem.isFavorited);
+        modelItem.episode,
+        modelItem.isFavorited);
   }
 
   @override
@@ -50,6 +51,7 @@ class UiCharacterMapper extends UiModelMapper<Character, UiCharacter> {
         model.gender,
         model.origin,
         model.location,
-        model.episode,model.isFavorited);
+        model.episode,
+        model.isFavorited);
   }
 }
