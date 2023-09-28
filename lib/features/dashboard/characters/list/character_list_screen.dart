@@ -25,6 +25,7 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(charecterListProvider);
     final readState = ref.read(charecterListProvider.notifier);
+
     if (state is Loading || state is Initial) {
       return const Align(
         child: CircularProgressIndicator(),
@@ -38,66 +39,74 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       if (listItem.isEmpty) {
         return errorWidget();
       }
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Flexible(
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: FutureBuilder<bool>(
-                future: delay(),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<bool> snapshot,
-                ) {
-                  final count = listItem.length;
+      return Stack(children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: FutureBuilder<bool>(
+                  future: delay(),
+                  builder: (
+                    BuildContext context,
+                    AsyncSnapshot<bool> snapshot,
+                  ) {
+                    final count = listItem.length;
 
-                  return NotificationListener<ScrollNotification>(
-                    onNotification: (scrollNotification) {
-                      if (scrollNotification.metrics.pixels ==
-                          scrollNotification.metrics.maxScrollExtent) {
-                        if (!readState.isPageLoadInProgress) {
-                          readState
-                            ..loadCharacters(true)
-                            ..isPageLoadInProgress = true;
+                    return NotificationListener<ScrollNotification>(
+                      onNotification: (scrollNotification) {
+                        if (scrollNotification.metrics.pixels ==
+                            scrollNotification.metrics.maxScrollExtent) {
+                          if (!readState.isPageLoadInProgress) {
+                            readState
+                              ..loadCharacters(true)
+                              ..isPageLoadInProgress = true;
+                          }
                         }
-                      }
-                      return false;
-                    },
-                    child: ListView.separated(
-                      itemCount: count,
-                      separatorBuilder: (BuildContext context, int index) =>
-                          const SizedBox(
-                        height: 12,
-                      ),
-                      key: const Key('characterListView'),
-                      shrinkWrap: true,
-                      padding: const EdgeInsets.all(8),
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return CharacterItemWidget(
-                          key: Key('characterItem:$index'),
-                          callback: (characterId) {
-                            ref
-                                .read(idProider.notifier)
-                                .updateState(characterId);
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (builder) => CharacterInfoPage(
-                                        charId: characterId)));
-                          },
-                          character: listItem[index],
-                        );
+                        return false;
                       },
-                    ),
-                  );
-                },
+                      child: ListView.separated(
+                        itemCount: count,
+                        separatorBuilder: (BuildContext context, int index) =>
+                            const SizedBox(
+                          height: 12,
+                        ),
+                        key: const Key('characterListView'),
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(8),
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return CharacterItemWidget(
+                            key: Key('characterItem:$index'),
+                            callback: (characterId) {
+                              ref
+                                  .read(idProider.notifier)
+                                  .updateState(characterId);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (builder) => CharacterInfoPage(
+                                          charId: characterId)));
+                            },
+                            character: listItem[index],
+                          );
+                        },
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-          )
-        ],
-      );
+            )
+          ],
+        ),
+        Visibility(
+          visible: readState.isPageLoadInProgress,
+          child: const LinearProgressIndicator(
+            color: Color(0xFF4F378B),
+          ),
+        ),
+      ]);
     }
   }
 

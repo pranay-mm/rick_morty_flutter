@@ -1,4 +1,4 @@
-import 'package:data/source/db/constants.dart';
+import 'package:data/constants.dart';
 import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 

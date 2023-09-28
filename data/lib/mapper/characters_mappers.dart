@@ -1,10 +1,9 @@
 import 'package:data/models/dt_character.dart';
 import 'package:data/models/dt_character_list.dart';
 import 'package:domain/entities/dm_character.dart';
-import 'package:injectable/injectable.dart';
 import 'package:data/mapper/entity_mapper.dart';
 
-// @injectable
+
 class CharacterListMapper
     extends EntityMapper<CharacterList, DTCharactersList> {
   CharacterListMapper(this.characterMapper);
@@ -26,7 +25,6 @@ class CharacterListMapper
   }
 }
 
-// @injectable
 class CharacterMapper extends EntityMapper<Character, DTCharacter> {
   @override
   DTCharacter mapToData(Character model) {

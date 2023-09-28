@@ -102,8 +102,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   },
                   decoration: kTextFieldDecoration.copyWith(
                       errorText: emailField.errorMessage,
-                      hintStyle: context.textTheme.bodyMedium,
-                      focusColor: context.colorScheme.onPrimary,
+                      focusColor: context.colorScheme.onSecondary,
                       prefixIcon: const Icon(Icons.email_outlined),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.cancel_outlined),
@@ -112,8 +111,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         },
                       ),
                       labelText: S.of(context).email,
-                      labelStyle:
-                          TextStyle(color: context.colorScheme.onPrimary),
+                      labelStyle: context.textTheme.bodyMedium
+                          ?.copyWith(color: context.colorScheme.onSecondary),
                       helperText: S.of(context).emailHelperText),
                 ),
                 const SizedBox(
@@ -138,8 +137,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                         },
                       ),
                       labelText: S.of(context).password,
-                      labelStyle:
-                          TextStyle(color: context.colorScheme.onPrimary),
+                      labelStyle: context.textTheme.bodyMedium
+                          ?.copyWith(color: context.colorScheme.onSecondary),
                       helperText: S.of(context).passwordHelperText,
                     )),
                 const SizedBox(
@@ -147,9 +146,9 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: context.colorScheme.onPrimary,
+                      backgroundColor: context.colorScheme.primary,
                       disabledBackgroundColor:
-                          context.colorScheme.onPrimary.withAlpha(100)),
+                          context.colorScheme.primary.withAlpha(100)),
                   onPressed:
                       !(formField.password.isValid && formField.email.isValid)
                           ? null
@@ -161,8 +160,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                             },
                   child: Text(
                     S.of(context).authentication,
-                    style: TextStyle(
-                        color: context.colorScheme.onSecondaryContainer),
+                    style: TextStyle(color: context.colorScheme.onPrimary),
                   ),
                 ),
                 SizedBox(

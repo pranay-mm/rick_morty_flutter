@@ -75,12 +75,14 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                               children: [
                                 Visibility(
                                     visible: !isExpanded,
-                                    child: Text(widget.character!.name!,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: context.textTheme.titleMedium
-                                            ?.copyWith(
-                                          color: Colors.white,
-                                        ))),
+                                    child: Expanded(
+                                      child: Text(widget.character!.name!,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: context.textTheme.titleMedium
+                                              ?.copyWith(
+                                            color: Colors.white,
+                                          )),
+                                    )),
                                 Icon(isExpanded
                                     ? Icons.arrow_drop_up
                                     : Icons.arrow_drop_down)

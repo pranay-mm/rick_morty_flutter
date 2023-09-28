@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:data/constants.dart';
 import 'package:data/mapper/characters_mappers.dart';
 import 'package:data/models/dt_character.dart';
 import 'package:data/models/dt_character_list.dart';
@@ -10,9 +11,7 @@ import 'package:dio/dio.dart';
 import 'package:domain/entities/api_response.dart';
 import 'package:domain/entities/dm_character.dart';
 import 'package:domain/repository/characters_repo.dart';
-import 'package:injectable/injectable.dart';
 
-// @Injectable(as: CharactersRepository)
 class CharactersRepositoryImpl implements CharactersRepository {
   CharactersRepositoryImpl(
       this.services, this.characterListMapper, this.charsDao, this.charMapper);
@@ -27,20 +26,24 @@ class CharactersRepositoryImpl implements CharactersRepository {
       int page, bool isLoadMore) async {
     int? count = await charsDao.getCharactersCount();
     if (count == null || count == 0 || isLoadMore) {
-      int nextPage = count == null ? 1 : (count / 20).round() + 1;
-      final response = await services.getCharactersList(nextPage);
-      final jsonsRes = jsonDecode(response.data) as Map<String, dynamic>;
-      final jsIterate = jsonsRes['results'] as List<dynamic>;
-      for (var element in jsIterate) {
-        (element as Map<String, dynamic>).addAll({"isFavorited": false});
-      }
-
-      final characterList = DTCharactersList.fromJson(jsonsRes);
       try {
-        await charsDao.insertsCharacters(characterList.charactersList);
-        return Success(data: characterListMapper.mapToDomain(characterList));
-      } on DioException catch (e) {
-        return Failure(error: DioExceptions.fromDioError(e).message);
+        int nextPage = count == null ? 1 : (count / perPageItem).round() + 1;
+        final response = await services.getCharactersList(nextPage);
+        final jsonResponse = jsonDecode(response.data) as Map<String, dynamic>;
+        final resultsResponse = jsonResponse['results'] as List<dynamic>;
+        for (var element in resultsResponse) {
+          (element as Map<String, dynamic>).addAll({"isFavorited": false});
+        }
+
+        final characterList = DTCharactersList.fromJson(jsonResponse);
+        try {
+          await charsDao.insertsCharacters(characterList.charactersList);
+          return Success(data: characterListMapper.mapToDomain(characterList));
+        } on DioException catch (e) {
+          return Failure(error: DioExceptions.fromDioError(e).message);
+        }
+      } on Exception catch (e) {
+        return Failure(error: e.toString());
       }
     } else {
       return Success(

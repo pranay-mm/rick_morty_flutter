@@ -55,5 +55,5 @@ Future<void> configAppDataInjection(String env) async {
           GetIt.I.get<CharactersRepository>()));
   GetIt.I.registerFactory<GetRickMortyCharacterUpdateUseCase>(() =>
       GetRickMortyCharacterUpdateUseCase(GetIt.I.get<CharactersRepository>()));
-  //GetIt.instance.$initGetIt(environment: env);
+  // GetIt.instance.$initGetIt(environment: env);
 }

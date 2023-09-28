@@ -147,8 +147,8 @@ class _OnBoardingScreenState extends ConsumerState<OnBoardingScreen> {
                           child: Icon(
                             Icons.arrow_forward,
                             color: !isProgressVisible
-                                ? context.colorScheme.onPrimary
-                                : context.colorScheme.onPrimary.withAlpha(100),
+                                ? context.colorScheme.primary
+                                : context.colorScheme.primary.withAlpha(100),
                           ),
                         ),
                         Visibility(

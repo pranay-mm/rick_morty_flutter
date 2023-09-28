@@ -33,14 +33,14 @@ class GetRickMortyFavouriteCharactersUseCase
         );
         // Adding it triggers the .onNext() in the `Observer`
         controller.add(CharacterListUseCaseResponse(characterList));
-        logger.finest('GetRickMortyCharactersUseCase successful.');
+        logger.finest('GetRickMortyFavouriteCharactersUseCase successful.');
         controller.close();
       } else {
         logger.severe('page is null.');
         controller.addError(InvalidRequestException());
       }
     } catch (e) {
-      logger.severe('GetRickMortyCharactersUseCase failure.');
+      logger.severe('GetRickMortyFavouriteCharactersUseCase failure.');
       controller.addError(e);
     }
     return controller.stream;
