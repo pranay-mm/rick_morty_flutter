@@ -23,6 +23,7 @@
     "origin":"Origin",
     "episodes":"Episodes",
     "location":"Location",
-    "error_message":"Something went wrong! Please try again."
+    "error_message":"Something went wrong! Please try again.",
+    "empty_favourite_screen":"Your favourite list is empty!"
     
 }

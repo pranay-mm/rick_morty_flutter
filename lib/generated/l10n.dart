@@ -299,6 +299,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Your favourite list is empty!`
+  String get empty_favourite_screen {
+    return Intl.message(
+      'Your favourite list is empty!',
+      name: 'empty_favourite_screen',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
