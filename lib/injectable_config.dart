@@ -10,5 +10,5 @@ import 'injectable_config.config.dart';
 )
 Future<void> configAppInjection(String env) async {
   await configAppDataInjection(env);
-  await GetIt.instance.$initGetIt(environment: env);
+  GetIt.instance.$initGetIt(environment: env);
 }

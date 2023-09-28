@@ -7,7 +7,6 @@ part 'rickmorty_api_client.g.dart';
 
 const String baseURL = 'https://rickandmortyapi.com/api/';
 
-@injectable
 @RestApi(baseUrl: baseURL)
 abstract class RickMortyApiClient {
   @factoryMethod

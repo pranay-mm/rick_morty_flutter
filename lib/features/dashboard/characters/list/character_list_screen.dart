@@ -20,18 +20,7 @@ class CharacterListScreen extends ConsumerStatefulWidget {
       _CharacterListScreenState();
 }
 
-class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
-    with SingleTickerProviderStateMixin {
-  AnimationController? animationController;
-  @override
-  void initState() {
-    animationController = AnimationController(
-      duration: const Duration(milliseconds: 1500),
-      vsync: this,
-    );
-    super.initState();
-  }
-
+class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(charecterListProvider);
@@ -68,7 +57,6 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
                       if (scrollNotification.metrics.pixels ==
                           scrollNotification.metrics.maxScrollExtent) {
                         if (!readState.isPageLoadInProgress) {
-                          //readState.page++;
                           readState
                             ..loadCharacters(true)
                             ..isPageLoadInProgress = true;
@@ -90,7 +78,9 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
                         return CharacterItemWidget(
                           key: Key('characterItem:$index'),
                           callback: (characterId) {
-                            ref.read(idProider.notifier).updateState(characterId);
+                            ref
+                                .read(idProider.notifier)
+                                .updateState(characterId);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -117,8 +107,12 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen>
   }
 
   Widget errorWidget() {
-    return Align(
+    return Container(
+      alignment: Alignment.center,
+      height: double.infinity,
+      width: double.infinity,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
             child: SizedBox(

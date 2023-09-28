@@ -1,4 +1,8 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:data/service/shared_pref_service.dart';
+import 'package:domain/repository/characters_repo.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +81,21 @@ class MyApp extends StatelessWidget {
         DashboardPage.id: (context) => const DashboardPage(),
         SettingsScreen.id: (context) => const SettingsScreen(),
         CharacterListScreen.id: (context) => const CharacterListScreen()
+      },
+      builder: (context, child) {
+        return FutureBuilder(
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return child!;
+            } else {
+              return Container(
+                color: Colors.white,
+                child: const CircularProgressIndicator(),
+              );
+            }
+          },
+          future: GetIt.I.isReady<CharactersRepository>(),
+        );
       },
       home: !pref.isOnBoardingShown
           ? const OnBoardingScreen()

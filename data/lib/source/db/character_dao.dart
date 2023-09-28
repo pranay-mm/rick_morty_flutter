@@ -21,4 +21,7 @@ abstract class CharacterDao {
 
   @Query('SELECT COUNT(*) FROM $tableCharacter')
   Future<int?> getCharactersCount();
+
+  @Query('SELECT * FROM $tableCharacter WHERE isFavorited = true')
+  Future<List<DTCharacter>> getFavAllCharacters();
 }

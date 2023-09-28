@@ -31,6 +31,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailHelperText": MessageLookupByLibrary.simpleMessage(
             "It\'s the key to your portal gun!"),
+        "empty_favourite_screen": MessageLookupByLibrary.simpleMessage(
+            "Your favourite list is empty!"),
         "episodes": MessageLookupByLibrary.simpleMessage("Episodes"),
         "error_message": MessageLookupByLibrary.simpleMessage(
             "Something went wrong! Please try again."),
