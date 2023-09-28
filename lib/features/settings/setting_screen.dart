@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/core/provider/app_theme_provider.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
 
@@ -37,6 +38,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   value: pref.themeFlagKey,
                   onChanged: (value) {
                     setState(() {
+                      ref.read(appThemeProvider.notifier).state = value;
                       pref.themeFlagKey = value;
                     });
                   }),

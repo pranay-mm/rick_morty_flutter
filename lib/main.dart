@@ -8,6 +8,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
+import 'package:rick_morty_flutter/core/provider/app_theme_provider.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
@@ -27,12 +28,12 @@ Future<void> main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final pref = GetIt.I.get<SharedPreferencesService>();
     return MaterialApp(
       localizationsDelegates: const [
@@ -50,7 +51,7 @@ class MyApp extends StatelessWidget {
           primary: const Color(0xFF6750A4),
           onPrimary: const Color(0xFFFFFFFF),
           secondary: const Color(0xFF625B71),
-          onSecondary: const Color(0xFFFFFFFF),
+          onSecondary: const Color(0xFF4A4458),
           secondaryContainer: const Color(0xFFE8DEF8),
           onSecondaryContainer: const Color(0xFF4A4458),
           onPrimaryContainer: const Color(0xFF21005D),
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      themeMode: pref.themeFlagKey ? ThemeMode.dark : ThemeMode.light,
+      themeMode: ref.watch(appThemeProvider) ? ThemeMode.dark : ThemeMode.light,
       routes: {
         OnBoardingScreen.id: (context) => const OnBoardingScreen(),
         LoginScreen.id: (context) => const LoginScreen(),
