@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_provider.dart';
+import 'package:rick_morty_flutter/features/dashboard/characters/favourite/character_favourite_provider.dart';
 import 'package:rick_morty_flutter/generated/l10n.dart';
 import 'package:rick_morty_flutter/models/ui_state.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character.dart';
@@ -53,10 +54,13 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                             const BorderRadius.all(Radius.circular(16)),
                         child: AspectRatio(
                           aspectRatio: 1,
-                          child: FadeInImage.memoryNetwork(
-                            placeholder: kTransparentImage,
-                            image: characterData.image!,
-                            fit: BoxFit.fill,
+                          child: Hero(
+                                tag: Key('image${characterData.id}'),
+                            child: FadeInImage.memoryNetwork(
+                              placeholder: kTransparentImage,
+                              image: characterData.image!,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                       ),
@@ -65,7 +69,7 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                         child: BackButton(
                           color: Colors.white,
                           onPressed: () {
-                            Navigator.pop(context);
+                            Navigator.pop(context, true);
                           },
                         ),
                       ),
@@ -93,6 +97,8 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                                               .read(charecterDetailsProvider
                                                   .notifier)
                                               .updateCharacter();
+                                          ref.refresh(
+                                              charecterFavoriteListProvider);
                                         });
                                       },
                                 icon: Icon(

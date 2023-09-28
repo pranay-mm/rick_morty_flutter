@@ -55,13 +55,16 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                                 borderRadius: borderRadius),
                             child: ClipRRect(
                               borderRadius: borderRadius,
-                              child: FadeInImage(
-                                  fit: BoxFit.cover,
-                                  height: 140,
-                                  width: double.infinity,
-                                  placeholder: MemoryImage(kTransparentImage),
-                                  image:
-                                      NetworkImage(widget.character!.image!)),
+                              child: Hero(
+                                tag: Key('image${widget.character?.id}'),
+                                child: FadeInImage(
+                                    fit: BoxFit.cover,
+                                    height: 140,
+                                    width: double.infinity,
+                                    placeholder: MemoryImage(kTransparentImage),
+                                    image:
+                                        NetworkImage(widget.character!.image!)),
+                              ),
                             ),
                           ),
                           Padding(
@@ -137,6 +140,8 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                                   ),
                                 ),
                                 FloatingActionButton(
+                                  heroTag:
+                                      Key('fabItem:${widget.character?.id}'),
                                   mini: true,
                                   onPressed: () {
                                     widget.callback(widget.character!.id!);
