@@ -93,6 +93,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 48.0,
                 ),
                 TextFormField(
+                  key: const Key('emailField'),
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
                   onChanged: (value) {
@@ -119,6 +120,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 18.0,
                 ),
                 TextFormField(
+                  key: const Key('passwordField'),
                     controller: passwordController,
                     obscureText: true,
                     onChanged: (value) {
@@ -145,6 +147,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 24.0,
                 ),
                 ElevatedButton(
+                  key: const Key('authButton'),
                   style: ElevatedButton.styleFrom(
                       backgroundColor: context.colorScheme.primary,
                       disabledBackgroundColor:

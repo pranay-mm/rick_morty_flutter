@@ -95,63 +95,54 @@ class _CharacterItemWidgetState extends State<CharacterItemWidget> {
                         visible: isExpanded,
                         maintainAnimation: true,
                         maintainState: true,
-                        child: AnimatedOpacity(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.fastOutSlowIn,
-                          opacity: isExpanded ? 1 : 0,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                left: 24.0,
-                                right: 14.0,
-                                top: 18.0,
-                                bottom: 18.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Column(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 24.0, right: 14.0, top: 18.0, bottom: 18.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Name:'),
+                                  Text('Species:'),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 14,
+                              ),
+                              Expanded(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Name:'),
-                                    Text('Species:'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  width: 14,
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(widget.character!.name!,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: context.textTheme.bodyMedium
-                                              ?.copyWith(
-                                            color: context
-                                                .colorScheme.onPrimaryContainer,
-                                          )),
-                                      Text(
+                                    Text(widget.character!.name!,
                                         overflow: TextOverflow.ellipsis,
-                                        widget.character!.species!,
                                         style: context.textTheme.bodyMedium
                                             ?.copyWith(
-                                                color: context.colorScheme
-                                                    .onPrimaryContainer),
-                                      )
-                                    ],
-                                  ),
+                                          color: context
+                                              .colorScheme.onPrimaryContainer,
+                                        )),
+                                    Text(
+                                      overflow: TextOverflow.ellipsis,
+                                      widget.character!.species!,
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(
+                                              color: context.colorScheme
+                                                  .onPrimaryContainer),
+                                    )
+                                  ],
                                 ),
-                                FloatingActionButton(
-                                  heroTag:
-                                      Key('fabItem:${widget.character?.id}'),
-                                  mini: true,
-                                  onPressed: () {
-                                    widget.callback(widget.character!.id!);
-                                  },
-                                  child: const Icon(Icons.arrow_forward),
-                                )
-                              ],
-                            ),
+                              ),
+                              FloatingActionButton(
+                                key: Key('fabItem:${widget.character?.id}'),
+                                heroTag: Key('fabItem:${widget.character?.id}'),
+                                mini: true,
+                                onPressed: () {
+                                  widget.callback(widget.character!.id!);
+                                },
+                                child: const Icon(Icons.arrow_forward),
+                              )
+                            ],
                           ),
                         ),
                       )

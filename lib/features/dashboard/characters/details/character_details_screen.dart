@@ -85,6 +85,7 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                               width: 40,
                               color: const Color(0xFFE8DEF8),
                               child: IconButton(
+                                key: const Key('like'),
                                 onPressed: isPageLoading
                                     ? null
                                     : () {

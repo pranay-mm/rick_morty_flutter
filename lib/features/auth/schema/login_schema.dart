@@ -11,5 +11,5 @@ class LoginSchema with _$LoginSchema {
   }) = _LoginSchema;
 
   factory LoginSchema.empty() =>
-      const LoginSchema(email: Field(value: ''), password: Field(value: ''));
+      LoginSchema(email: Field(value: ''), password: Field(value: ''));
 }

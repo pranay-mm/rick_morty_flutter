@@ -43,6 +43,7 @@ class _TabsScreenState extends ConsumerState<DashboardPage> {
         )),
         actions: [
           IconButton(
+            key: const Key('settings_icon'),
               onPressed: () {
                 Navigator.of(context).pushNamed(SettingsScreen.id);
               },
@@ -59,6 +60,7 @@ class _TabsScreenState extends ConsumerState<DashboardPage> {
             label: S.of(context).tabLableCharacters,
           ),
           NavigationDestination(
+            key: const Key('favourite_tab'),
             selectedIcon: const Icon(Icons.star),
             icon: const Icon(Icons.star_outline),
             label: S.of(context).tabLableFavorite,

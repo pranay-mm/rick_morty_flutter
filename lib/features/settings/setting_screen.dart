@@ -35,6 +35,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ? const Icon(Icons.dark_mode_outlined)
                   : const Icon(Icons.light_mode_outlined),
               trailing: Switch(
+                key: const Key('theme_toggle'),
                   value: pref.themeFlagKey,
                   onChanged: (value) {
                     setState(() {
@@ -59,6 +60,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               height: 12,
             ),
             ListTile(
+              key: const Key('signout_option'),
               onTap: () {
                 _dialogBuilder(context, ref);
               },
@@ -108,6 +110,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
               },
             ),
             TextButton(
+              key: const Key('signout_button'),
               child: Text('Sign Out',
                   style: context.textTheme.labelLarge
                       ?.copyWith(color: context.colorScheme.error)),
