@@ -36,7 +36,7 @@ jobs:
       # - run: flutter analyze .
 
       # Run widget tests for our flutter project.
-      - run: flutter test
+      - run: flutter test --set-exit-if-changed --output none .
 
       # Build apk.
       - run: flutter build apk
