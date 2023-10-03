@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:rick_morty_flutter/main.dart' as app;
 import 'package:integration_test/integration_test.dart';
 
-import 'character_list_tests.dart';
+import 'dashboard_screens_tests.dart';
 import 'login_screen_tests.dart';
 import 'onboarding_screen_test.dart';
 
