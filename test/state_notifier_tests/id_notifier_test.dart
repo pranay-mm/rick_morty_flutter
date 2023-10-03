@@ -14,5 +14,5 @@ void main() {
       act: (notifier) => notifier.updateState(1),
       seed: 0,
       wait: const Duration(seconds: 1),
-      expect: () => <int>[0]);
+      expect: () => <int>[1]);
 }
