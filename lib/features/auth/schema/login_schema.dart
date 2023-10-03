@@ -11,5 +11,6 @@ class LoginSchema with _$LoginSchema {
   }) = _LoginSchema;
 
   factory LoginSchema.empty() =>
+      //ignore: prefer_const_constructors
       LoginSchema(email: Field(value: ''), password: Field(value: ''));
 }

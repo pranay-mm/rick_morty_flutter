@@ -97,6 +97,7 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                                               .read(charecterDetailsProvider
                                                   .notifier)
                                               .updateCharacter();
+                                          //ignore: unused_result
                                           ref.refresh(
                                               charecterFavoriteListProvider);
                                         });

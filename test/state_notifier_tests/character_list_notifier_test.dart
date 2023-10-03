@@ -1,8 +1,8 @@
-import 'package:domain/entities/dm_character.dart';
-import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_provider.dart';
-import 'package:rick_morty_flutter/models/ui_state.dart';
-import 'package:rick_morty_flutter/ui/model/ui_character.dart';
-import 'package:riverpod_test/riverpod_test.dart';
+// import 'package:domain/entities/dm_character.dart';
+// import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_provider.dart';
+// import 'package:rick_morty_flutter/models/ui_state.dart';
+// import 'package:rick_morty_flutter/ui/model/ui_character.dart';
+// import 'package:riverpod_test/riverpod_test.dart';
 
 void main() {
   // testStateNotifier<CharacterListNotifier, UiState<List<UiCharacter>>>(
