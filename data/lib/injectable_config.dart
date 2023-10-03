@@ -12,7 +12,6 @@ import 'package:domain/use_cases/get_favourite_character_list_usercase.dart';
 import 'package:domain/use_cases/update_character_item_usercase.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
-import 'injectable_config.config.dart';
 
 @InjectableInit(
   initializerName: r'$initGetIt', // default

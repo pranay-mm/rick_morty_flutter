@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
-
 import 'package:data/service/shared_pref_service.dart';
 import 'package:domain/repository/characters_repo.dart';
 import 'package:firebase_core/firebase_core.dart';

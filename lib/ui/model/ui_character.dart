@@ -10,7 +10,7 @@ class UiCharacter extends UIModel {
   bool isFavorited;
 
   UiCharacter(this.id, this.name, this.image, this.status, this.species,
-      this.gender, this.origin, this.location, this.episode,this.isFavorited);
+      this.gender, this.origin, this.location, this.episode, this.isFavorited);
 
   String episodesList() {
     if (episode != null && episode?.isNotEmpty == true) {

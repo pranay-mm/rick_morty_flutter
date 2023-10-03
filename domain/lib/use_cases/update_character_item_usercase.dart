@@ -15,8 +15,8 @@ class CharacterItemUpdateParams {
   });
 }
 
-class GetRickMortyCharacterUpdateUseCase
-    extends UseCase<CharacterItemUpdateCaseResponse, CharacterItemUpdateParams> {
+class GetRickMortyCharacterUpdateUseCase extends UseCase<
+    CharacterItemUpdateCaseResponse, CharacterItemUpdateParams> {
   final CharactersRepository repo;
 
   GetRickMortyCharacterUpdateUseCase(this.repo);
@@ -28,15 +28,14 @@ class GetRickMortyCharacterUpdateUseCase
     try {
       if (characterListReqParams != null) {
         // Fetch from repository
-        if(characterListReqParams.character!= null){
-        final characterList = await repo.updateChar(
-          characterListReqParams.character!
-        );
-        // Adding it triggers the .onNext() in the `Observer`
-        controller.add(CharacterItemUpdateCaseResponse(characterList));
-        logger.finest('CharacterItemUpdateCaseResponse successful.');
-        controller.close();
-        }else{
+        if (characterListReqParams.character != null) {
+          final characterList =
+              await repo.updateChar(characterListReqParams.character!);
+          // Adding it triggers the .onNext() in the `Observer`
+          controller.add(CharacterItemUpdateCaseResponse(characterList));
+          logger.finest('CharacterItemUpdateCaseResponse successful.');
+          controller.close();
+        } else {
           controller.addError(InvalidRequestException());
         }
       } else {

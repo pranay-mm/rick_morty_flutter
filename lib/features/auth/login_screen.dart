@@ -120,7 +120,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   height: 18.0,
                 ),
                 TextFormField(
-                  key: const Key('passwordField'),
+                    key: const Key('passwordField'),
                     controller: passwordController,
                     obscureText: true,
                     onChanged: (value) {

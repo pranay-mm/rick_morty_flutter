@@ -65,13 +65,11 @@ class _CharacterListScreenState
                         key: Key('characterItem:$index'),
                         callback: (characterId) async {
                           ref.read(idProider.notifier).updateState(characterId);
-                          final isFavChanged = await Navigator.push(
+                          Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (builder) =>
                                       CharacterInfoPage(charId: characterId)));
-                          if (!mounted) return;
-                          //ref.read(charecterFavoriteListProvider);
                         },
                         character: listItem[index],
                       );

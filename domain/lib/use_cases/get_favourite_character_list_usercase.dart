@@ -15,8 +15,8 @@ class CharacterFavouriteListReqParams {
   });
 }
 
-class GetRickMortyFavouriteCharactersUseCase
-    extends UseCase<CharacterListUseCaseResponse, CharacterFavouriteListReqParams> {
+class GetRickMortyFavouriteCharactersUseCase extends UseCase<
+    CharacterListUseCaseResponse, CharacterFavouriteListReqParams> {
   final CharactersRepository repo;
 
   GetRickMortyFavouriteCharactersUseCase(this.repo);
@@ -28,9 +28,8 @@ class GetRickMortyFavouriteCharactersUseCase
     try {
       if (characterListReqParams != null) {
         // Fetch from repository
-        final characterList = await repo.getFavouriteCharactersList(
-          characterListReqParams.page ?? 0
-        );
+        final characterList = await repo
+            .getFavouriteCharactersList(characterListReqParams.page ?? 0);
         // Adding it triggers the .onNext() in the `Observer`
         controller.add(CharacterListUseCaseResponse(characterList));
         logger.finest('GetRickMortyFavouriteCharactersUseCase successful.');

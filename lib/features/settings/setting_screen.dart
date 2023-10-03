@@ -35,7 +35,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ? const Icon(Icons.dark_mode_outlined)
                   : const Icon(Icons.light_mode_outlined),
               trailing: Switch(
-                key: const Key('theme_toggle'),
+                  key: const Key('theme_toggle'),
                   value: pref.themeFlagKey,
                   onChanged: (value) {
                     setState(() {

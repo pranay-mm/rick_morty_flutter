@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:data/source/db/character_dao.dart';
 import 'package:domain/entities/dm_character.dart';
 import 'package:domain/use_cases/get_character_item_usercase.dart';
-import 'package:domain/use_cases/get_character_usercase.dart';
 import 'package:domain/entities/api_response.dart' as api_response;
 import 'package:domain/use_cases/update_character_item_usercase.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,18 +60,17 @@ class CharacterDetailsNotifier extends StateNotifier<UiState<UiCharacter>> {
               Failure(exception: (responseData as api_response.Failure).error);
         } else {
           uiCharacter = _uiMapper.mapToPresentation(Character(
-                  uiCharacter.id,
-                  uiCharacter.name,
-                  uiCharacter.image,
-                  uiCharacter.status,
-                  uiCharacter.species,
-                  uiCharacter.gender,
-                  uiCharacter.origin,
-                  uiCharacter.location,
-                  uiCharacter.episode,
-                  !uiCharacter.isFavorited));
-          state = Success(
-              data: uiCharacter);
+              uiCharacter.id,
+              uiCharacter.name,
+              uiCharacter.image,
+              uiCharacter.status,
+              uiCharacter.species,
+              uiCharacter.gender,
+              uiCharacter.origin,
+              uiCharacter.location,
+              uiCharacter.episode,
+              !uiCharacter.isFavorited));
+          state = Success(data: uiCharacter);
         }
       }
       isPageLoadInProgress = false;
@@ -84,9 +81,7 @@ class CharacterDetailsNotifier extends StateNotifier<UiState<UiCharacter>> {
         state = Failure(exception: onError.toString());
       }
     },
-        () {
-
-        },
+        () {},
         CharacterItemUpdateParams(
             character: Character(
                 uiCharacter.id,

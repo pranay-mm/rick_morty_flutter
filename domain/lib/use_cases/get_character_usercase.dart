@@ -11,10 +11,7 @@ class CharacterListReqParams {
   final int? page;
   final bool isLoadMore;
 
-  const CharacterListReqParams({
-    required this.page,
-    required this.isLoadMore
-  });
+  const CharacterListReqParams({required this.page, required this.isLoadMore});
 }
 
 class GetRickMortyCharactersUseCase
@@ -31,8 +28,8 @@ class GetRickMortyCharactersUseCase
       if (characterListReqParams != null) {
         // Fetch from repository
         final characterList = await repo.getRickAndMortyCharacters(
-          characterListReqParams.page ?? 0,characterListReqParams.isLoadMore
-        );
+            characterListReqParams.page ?? 0,
+            characterListReqParams.isLoadMore);
         // Adding it triggers the .onNext() in the `Observer`
         controller.add(CharacterListUseCaseResponse(characterList));
         logger.finest('GetRickMortyCharactersUseCase successful.');

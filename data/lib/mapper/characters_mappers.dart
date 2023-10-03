@@ -3,7 +3,6 @@ import 'package:data/models/dt_character_list.dart';
 import 'package:domain/entities/dm_character.dart';
 import 'package:data/mapper/entity_mapper.dart';
 
-
 class CharacterListMapper
     extends EntityMapper<CharacterList, DTCharactersList> {
   CharacterListMapper(this.characterMapper);
@@ -37,7 +36,8 @@ class CharacterMapper extends EntityMapper<Character, DTCharacter> {
         model.gender,
         DTOrigin(model.origin?.url, model.origin?.name),
         DTLocation(model.location?.url, model.location?.name),
-        model.episode,model.isFavorited);
+        model.episode,
+        model.isFavorited);
   }
 
   @override
@@ -51,7 +51,8 @@ class CharacterMapper extends EntityMapper<Character, DTCharacter> {
       entity.gender,
       Origin(entity.origin?.url, entity.origin?.name),
       Location(entity.location?.url, entity.location?.name),
-      entity.episode,entity.isFavorited,
+      entity.episode,
+      entity.isFavorited,
     );
   }
 }

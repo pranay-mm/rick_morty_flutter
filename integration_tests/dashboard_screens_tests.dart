@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -59,6 +58,7 @@ class CharacterListTests {
     await widgetTester.pumpAndSettle();
     await widgetTester.pump(const Duration(seconds: 2));
   }
+
   Future<void> clickOnSettings() async {
     final itemFinder = find.byKey(const Key('settings_icon'));
     await widgetTester.ensureVisible(itemFinder);
@@ -66,6 +66,7 @@ class CharacterListTests {
     await widgetTester.pumpAndSettle();
     await widgetTester.pump(const Duration(seconds: 2));
   }
+
   Future<void> clickOnThemeChange() async {
     final itemFinder = find.byKey(const Key('theme_toggle'));
     await widgetTester.ensureVisible(itemFinder);
@@ -73,6 +74,7 @@ class CharacterListTests {
     await widgetTester.pumpAndSettle();
     await widgetTester.pump(const Duration(seconds: 2));
   }
+
   Future<void> clickOnLogout() async {
     final itemFinder = find.byKey(const Key('signout_option'));
     await widgetTester.ensureVisible(itemFinder);
@@ -80,7 +82,8 @@ class CharacterListTests {
     await widgetTester.pumpAndSettle();
     await widgetTester.pump(const Duration(seconds: 2));
   }
-   Future<void> clickOnLogoutConfirm() async {
+
+  Future<void> clickOnLogoutConfirm() async {
     final itemFinder = find.byKey(const Key('signout_button'));
     await widgetTester.ensureVisible(itemFinder);
     await widgetTester.tap(itemFinder);

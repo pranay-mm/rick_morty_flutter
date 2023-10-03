@@ -1,16 +1,6 @@
 class Character {
-  Character(
-    this.id,
-    this.name,
-    this.image,
-    this.status,
-    this.species,
-    this.gender,
-    this.origin,
-    this.location,
-    this.episode,
-    this.isFavorited
-  );
+  Character(this.id, this.name, this.image, this.status, this.species,
+      this.gender, this.origin, this.location, this.episode, this.isFavorited);
   final int? id;
   final String? name, image, status, species, gender;
   final isFavorited;

@@ -5,11 +5,7 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_provider.dart';
-
-import 'package:rick_morty_flutter/main.dart';
 import 'package:riverpod_test/riverpod_test.dart';
 
 void main() {

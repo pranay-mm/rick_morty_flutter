@@ -10,13 +10,13 @@ import 'package:rick_morty_flutter/models/ui_state.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character.dart';
 import 'package:rick_morty_flutter/ui/model/ui_character_mapper.dart';
 
-final charecterFavoriteListProvider =
-    StateNotifierProvider<CharacterFavouriteListNotifier, UiState<List<UiCharacter>>>(
-        (ref) {
+final charecterFavoriteListProvider = StateNotifierProvider<
+    CharacterFavouriteListNotifier, UiState<List<UiCharacter>>>((ref) {
   return CharacterFavouriteListNotifier();
 });
 
-class CharacterFavouriteListNotifier extends StateNotifier<UiState<List<UiCharacter>>> {
+class CharacterFavouriteListNotifier
+    extends StateNotifier<UiState<List<UiCharacter>>> {
   CharacterFavouriteListNotifier() : super(Initial()) {
     loadCharacters(false);
   }

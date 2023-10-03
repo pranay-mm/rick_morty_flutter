@@ -28,9 +28,8 @@ class GetRickMortyCharacterUseCase
     try {
       if (characterListReqParams != null) {
         // Fetch from repository
-        final characterList = await repo.getRickAndMortyCharacter(
-          characterListReqParams.id
-        );
+        final characterList =
+            await repo.getRickAndMortyCharacter(characterListReqParams.id);
         // Adding it triggers the .onNext() in the `Observer`
         controller.add(CharacterItemUseCaseResponse(characterList));
         logger.finest('GetRickMortyCharacterUseCase successful.');

@@ -43,7 +43,7 @@ class _TabsScreenState extends ConsumerState<DashboardPage> {
         )),
         actions: [
           IconButton(
-            key: const Key('settings_icon'),
+              key: const Key('settings_icon'),
               onPressed: () {
                 Navigator.of(context).pushNamed(SettingsScreen.id);
               },

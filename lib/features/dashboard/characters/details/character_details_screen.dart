@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:like_button/like_button.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_provider.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/favourite/character_favourite_provider.dart';
@@ -55,7 +54,7 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                         child: AspectRatio(
                           aspectRatio: 1,
                           child: Hero(
-                                tag: Key('image${characterData.id}'),
+                            tag: Key('image${characterData.id}'),
                             child: FadeInImage.memoryNetwork(
                               placeholder: kTransparentImage,
                               image: characterData.image!,

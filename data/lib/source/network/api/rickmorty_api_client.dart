@@ -1,4 +1,3 @@
-import 'package:data/models/dt_character_list.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';

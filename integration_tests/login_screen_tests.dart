@@ -12,8 +12,8 @@ class LoginScreenTest {
   }
 
   Future<void> checkLoginSuccessFailedCase(bool isForFailed) async {
-    await widgetTester.enterText(
-        find.byKey(const Key('emailField')),isForFailed ? 'wrongemail_here' : 'pranayp@yopmail.com');
+    await widgetTester.enterText(find.byKey(const Key('emailField')),
+        isForFailed ? 'wrongemail_here' : 'pranayp@yopmail.com');
     await widgetTester.enterText(
         find.byKey(const Key('passwordField')), '123123123');
     await widgetTester.pump(const Duration(seconds: 2));
