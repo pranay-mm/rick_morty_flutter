@@ -67,6 +67,7 @@ class MockCharactersRepoTest extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.ApiResponse<_i5.CharacterList>>);
+
   @override
   _i4.Future<_i2.ApiResponse<_i5.Character>>? getRickAndMortyCharacter(
           int? id) =>
@@ -74,6 +75,7 @@ class MockCharactersRepoTest extends _i1.Mock
         #getRickAndMortyCharacter,
         [id],
       )) as _i4.Future<_i2.ApiResponse<_i5.Character>>?);
+
   @override
   _i4.Future<_i2.ApiResponse<void>> updateChar(_i5.Character? character) =>
       (super.noSuchMethod(
@@ -90,6 +92,7 @@ class MockCharactersRepoTest extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i2.ApiResponse<void>>);
+
   @override
   _i4.Future<_i2.ApiResponse<_i5.CharacterList>> getFavouriteCharactersList(
           int? page) =>
