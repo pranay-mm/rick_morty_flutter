@@ -22,7 +22,7 @@
       <a href = "https://github.com/pranay-mm/rick_morty_flutter/issues">
           <img src="https://img.shields.io/github/issues/pranay-mm/rick_morty_flutter?color=orange&style=for-the-badge" />
       </a>
-  </p>
+  </p> 
 
 ### 👨‍💻 Tech stack
 
@@ -32,7 +32,7 @@
 | 💚 Service Locator  | [get_it](https://pub.dev/packages/get_it)                       |
 | 🏛 Navigation       | [Flutter Navigator](https://docs.flutter.dev/ui/navigation)                 |
 | 📄 Serialization    | [json_serializable](https://pub.dev/packages/json_serializable) |
-| 🚀 Riverpod Test        | [riverpod_test](https://pub.dev/packages/riverpod_test)                 |
+| 🚀 Test        | [riverpod_test](https://pub.dev/packages/riverpod_test)  [flutter_test](https://api.flutter.dev/flutter/flutter_test/flutter_test-library.html)                |
 | 🖊️ Mock            | [mockito](https://pub.dev/packages/mockito)                     |
 | 🌐 Networking            | [Retrofit(Dio)](https://pub.dev/packages/retrofit)                     |
 | 💾 Database            | [Floor](https://pub.dev/packages/floor)                     |
@@ -77,6 +77,13 @@ from [Praxis Flutter](https://github.com/mutualmobile/PraxisFlutter).
     <td><img src = "art/settings.jpg" width=240/></td>
   </tr>
 </table>
+
+### Setup git hooks
+
+1. Execute the following commands to establish a Git hook that will automatically format the code, analyze it, and run tests.
+      
+      1. `git config core.hooksPath .githooks/` : point git hooks path for project
+      2. `chmod ug+x .githooks/*` : update permission for hooks file
 
 ### How to run the project? ✅
 
