@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/core/widget/fade_pageroute.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_provider.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/details/character_details_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_item_widget.dart';
@@ -85,8 +86,8 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
                                   .updateState(characterId);
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (builder) => CharacterInfoPage(
+                                  FadeRoute(
+                                      page: CharacterInfoPage(
                                           charId: characterId)));
                             },
                             character: listItem[index],

@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:data/service/shared_pref_service.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:domain/repository/characters_repo.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
@@ -23,7 +25,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(DevicePreview(
+    builder: (context) => const ProviderScope(child: MyApp()),
+    enabled: !kReleaseMode,
+  ));
 }
 
 class MyApp extends ConsumerWidget {
@@ -34,6 +39,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pref = GetIt.I.get<SharedPreferencesService>();
     return MaterialApp(
+      locale: DevicePreview.locale(context),
       localizationsDelegates: const [
         S.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -60,6 +66,7 @@ class MyApp extends ConsumerWidget {
       ),
       darkTheme: FlexThemeData.dark(
         colorScheme: ColorScheme.fromSeed(
+          brightness: Brightness.dark,
           seedColor: const Color(0xFFD0BCFF),
           primary: const Color(0xFFD0BCFF),
           onPrimary: const Color(0xFF4F378B),

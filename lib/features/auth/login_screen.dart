@@ -5,6 +5,7 @@ import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rick_morty_flutter/core/constants.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/core/widget/fade_pageroute.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
 import 'package:rick_morty_flutter/features/auth/provider/form/auth_form_provider.dart';
 import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
@@ -33,7 +34,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
         orElse: () => null,
         authenticated: (user) {
           pref.isUserLoggedIn = true;
-          Navigator.of(context).pushReplacementNamed(DashboardPage.id);
+          Navigator.of(context).push(FadeRoute(page: const DashboardPage()));
         },
         unauthenticated: (message) {
           ScaffoldMessenger.of(context).showSnackBar(
