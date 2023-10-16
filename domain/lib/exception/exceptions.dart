@@ -1,0 +1,1 @@
+class InvalidRequestException implements Exception {}

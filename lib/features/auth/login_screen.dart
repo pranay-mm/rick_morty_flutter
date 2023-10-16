@@ -1,10 +1,17 @@
+import 'package:data/service/shared_pref_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get_it/get_it.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:rick_morty_flutter/core/constants.dart';
 import 'package:rick_morty_flutter/core/extensions.dart';
+import 'package:rick_morty_flutter/core/widget/fade_pageroute.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
 import 'package:rick_morty_flutter/features/auth/provider/form/auth_form_provider.dart';
+import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
+import 'package:rick_morty_flutter/generated/l10n.dart';
+
+import '../../gen/assets.gen.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   static const String id = 'login_screen';
@@ -21,11 +28,13 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
   final passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final pref = GetIt.I.get<SharedPreferencesService>();
     ref.listen(authNotifierProvider, ((previous, next) {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
-          //TODO: navigate to dashboard screen
+          pref.isUserLoggedIn = true;
+          Navigator.of(context).push(FadeRoute(page: const DashboardPage()));
         },
         unauthenticated: (message) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -61,7 +70,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 Flexible(
                   child: SizedBox(
                     height: 200.0,
-                    child: Image.asset('images/rick_and_morty_auth_bg_2.png'),
+                    child: Assets.images.rickAndMortyAuthBg2.image(),
                   ),
                 ),
                 SizedBox(
@@ -69,7 +78,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Text(
                   textAlign: TextAlign.center,
-                  'Authentication',
+                  S.of(context).authentication,
                   style: context.textTheme.titleLarge
                       ?.copyWith(fontWeight: FontWeight.w400),
                 ),
@@ -78,13 +87,14 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Text(
                   textAlign: TextAlign.center,
-                  'Pickle Rick is the only one who can crack your password. So don’t worry, and enter your credentials.',
+                  S.of(context).authenticationInfo,
                   style: context.textTheme.bodyMedium?.copyWith(),
                 ),
                 const SizedBox(
                   height: 48.0,
                 ),
                 TextFormField(
+                  key: const Key('emailField'),
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
                   onChanged: (value) {
@@ -94,8 +104,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                   },
                   decoration: kTextFieldDecoration.copyWith(
                       errorText: emailField.errorMessage,
-                      hintStyle: context.textTheme.bodyMedium,
-                      focusColor: context.colorScheme.onPrimary,
+                      focusColor: context.colorScheme.onSecondary,
                       prefixIcon: const Icon(Icons.email_outlined),
                       suffixIcon: IconButton(
                         icon: const Icon(Icons.cancel_outlined),
@@ -103,15 +112,16 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           emailController.text = '';
                         },
                       ),
-                      labelText: 'Email',
-                      labelStyle:
-                          TextStyle(color: context.colorScheme.onPrimary),
-                      helperText: 'It\'s the key to your portal gun!'),
+                      labelText: S.of(context).email,
+                      labelStyle: context.textTheme.bodyMedium
+                          ?.copyWith(color: context.colorScheme.onSecondary),
+                      helperText: S.of(context).emailHelperText),
                 ),
                 const SizedBox(
                   height: 18.0,
                 ),
                 TextFormField(
+                    key: const Key('passwordField'),
                     controller: passwordController,
                     obscureText: true,
                     onChanged: (value) {
@@ -120,28 +130,29 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                           .setPassword(value);
                     },
                     decoration: kTextFieldDecoration.copyWith(
-                        errorText: passwordField.errorMessage,
-                        hintStyle: context.textTheme.bodyMedium,
-                        prefixIcon: const Icon(Icons.edit_outlined),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.cancel_outlined),
-                          onPressed: () {
-                            passwordController.text = '';
-                          },
-                        ),
-                        labelText: 'Password',
-                        labelStyle:
-                            TextStyle(color: context.colorScheme.onPrimary),
-                        helperText:
-                            'Your password must be at least 9 dimensions long!')),
+                      errorText: passwordField.errorMessage,
+                      hintStyle: context.textTheme.bodyMedium,
+                      prefixIcon: const Icon(Icons.edit_outlined),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.cancel_outlined),
+                        onPressed: () {
+                          passwordController.text = '';
+                        },
+                      ),
+                      labelText: S.of(context).password,
+                      labelStyle: context.textTheme.bodyMedium
+                          ?.copyWith(color: context.colorScheme.onSecondary),
+                      helperText: S.of(context).passwordHelperText,
+                    )),
                 const SizedBox(
                   height: 24.0,
                 ),
                 ElevatedButton(
+                  key: const Key('authButton'),
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: context.colorScheme.onPrimary,
+                      backgroundColor: context.colorScheme.primary,
                       disabledBackgroundColor:
-                          context.colorScheme.onPrimary.withAlpha(100)),
+                          context.colorScheme.primary.withAlpha(100)),
                   onPressed:
                       !(formField.password.isValid && formField.email.isValid)
                           ? null
@@ -152,9 +163,8 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                                   );
                             },
                   child: Text(
-                    'Authentication',
-                    style: TextStyle(
-                        color: context.colorScheme.onSecondaryContainer),
+                    S.of(context).authentication,
+                    style: TextStyle(color: context.colorScheme.onPrimary),
                   ),
                 ),
                 SizedBox(
@@ -162,7 +172,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 Text(
                   textAlign: TextAlign.center,
-                  'Note: If no account exists, one will be created for you',
+                  S.of(context).authNote,
                   style: context.textTheme.bodyMedium
                       ?.copyWith(color: context.colorScheme.onPrimary),
                 ),
