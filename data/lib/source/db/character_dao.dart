@@ -11,7 +11,7 @@ abstract class CharacterDao {
   Future<void> insertsCharacters(List<DTCharacter> list);
 
   @update
-  Future<void> updateChar(DTCharacter char);
+  Future<void> updateFavouriteCharater(DTCharacter char);
 
   @Query('SELECT * FROM $tableCharacter WHERE id = :id')
   Future<DTCharacter?> findCharacterById(int id);

@@ -209,7 +209,7 @@ class _$CharacterDao extends CharacterDao {
   }
 
   @override
-  Future<void> updateChar(DTCharacter char) async {
+  Future<void> updateFavouriteCharater(DTCharacter char) async {
     await _dTCharacterUpdateAdapter.update(char, OnConflictStrategy.abort);
   }
 }

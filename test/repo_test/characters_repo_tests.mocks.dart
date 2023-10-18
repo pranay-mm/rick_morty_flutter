@@ -77,7 +77,8 @@ class MockCharactersRepoTest extends _i1.Mock
       )) as _i4.Future<_i2.ApiResponse<_i5.Character>>?);
 
   @override
-  _i4.Future<_i2.ApiResponse<void>> updateChar(_i5.Character? character) =>
+  _i4.Future<_i2.ApiResponse<void>> updateFavouriteCharater(
+          _i5.Character? character) =>
       (super.noSuchMethod(
         Invocation.method(
           #updateChar,
