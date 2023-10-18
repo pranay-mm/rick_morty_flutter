@@ -29,8 +29,8 @@ class GetRickMortyCharacterUpdateUseCase extends UseCase<
       if (characterListReqParams != null) {
         // Fetch from repository
         if (characterListReqParams.character != null) {
-          final characterList =
-              await repo.updateChar(characterListReqParams.character!);
+          final characterList = await repo
+              .updateFavouriteCharater(characterListReqParams.character!);
           // Adding it triggers the .onNext() in the `Observer`
           controller.add(CharacterItemUpdateCaseResponse(characterList));
           logger.finest('CharacterItemUpdateCaseResponse successful.');

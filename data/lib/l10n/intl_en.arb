@@ -1,0 +1,18 @@
+{
+    "errorDioCancel": "Request to API server was cancelled",
+    "errorConnectionTimeout": "Connection timeout with API server",
+    "errorReceiveTimeout": "Receive timeout in connection with API server",
+    "errorSendTimeout": "Send timeout in connection with API server",
+    "noInternet": "No Internet",
+    "responseDataNot": "Response data not found",
+    "unexpectedErrorOccurred": "Unexpected error occurred",
+    "something_went_wrong": "Something went wrong",
+    "bad_request": "Bad request",
+    "unauthorized": "Unauthorized",
+    "forbidden": "Forbidden",
+    "error": "Error",
+    "sessionExpired": "Session Expired. Please LogIn again",
+    "internalServerError": "Internal server error",
+    "serverUnavailable": "Server unavailable",
+    "oopsSomethingWentWrong": "Oops something went wrong"
+}

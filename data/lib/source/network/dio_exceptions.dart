@@ -1,38 +1,40 @@
 import 'package:dio/dio.dart';
 
+import '../../generated/l10n.dart';
+
 class DioExceptions implements Exception {
   late String message;
 
   DioExceptions.fromDioError(DioException dioError) {
     switch (dioError.type) {
       case DioExceptionType.cancel:
-        message = "Request to API server was cancelled";
+        message = S.current.errorDioCancel;
         break;
       case DioExceptionType.connectionTimeout:
-        message = "Connection timeout with API server";
+        message = S.current.errorConnectionTimeout;
         break;
       case DioExceptionType.receiveTimeout:
-        message = "Receive timeout in connection with API server";
+        message = S.current.errorReceiveTimeout;
         break;
       case DioExceptionType.badResponse:
         message = _handleError(
             dioError.response?.statusCode, dioError.response?.data);
         break;
       case DioExceptionType.sendTimeout:
-        message = "Send timeout in connection with API server";
+        message = S.current.errorSendTimeout;
         break;
       case DioExceptionType.unknown:
         if (dioError.message?.contains("SocketException") == true) {
-          message = 'No Internet';
+          message = S.current.noInternet;
           break;
         } else if (dioError.message?.contains('HandshakeException') == true) {
-          message = 'Response data not found';
+          message = S.current.responseDataNot;
           break;
         }
-        message = "Unexpected error occurred";
+        message = S.current.unexpectedErrorOccurred;
         break;
       default:
-        message = "Something went wrong";
+        message = S.current.something_went_wrong;
         break;
     }
   }
@@ -40,21 +42,21 @@ class DioExceptions implements Exception {
   String _handleError(int? statusCode, dynamic error) {
     switch (statusCode) {
       case 400:
-        return error['error'] ?? 'Bad request';
+        return error['error'] ?? S.current.bad_request;
       case 401:
-        return error['error'] ?? 'Unauthorized';
+        return error['error'] ?? S.current.unauthorized;
       case 403:
-        return error['error'] ?? 'Forbidden';
+        return error['error'] ?? S.current.forbidden;
       case 404:
-        return error['error'] ?? 'Error';
+        return error['error'] ?? S.current.error;
       case 420:
-        return 'Session Expired. Please LogIn again';
+        return S.current.sessionExpired;
       case 500:
-        return error['error'] ?? 'Internal server error';
+        return error['error'] ?? S.current.internalServerError;
       case 502:
-        return error['error'] ?? 'Server unavailable';
+        return error['error'] ?? S.current.serverUnavailable;
       default:
-        return 'Oops something went wrong';
+        return S.current.oopsSomethingWentWrong;
     }
   }
 

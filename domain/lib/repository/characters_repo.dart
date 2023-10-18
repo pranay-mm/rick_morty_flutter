@@ -5,6 +5,6 @@ abstract class CharactersRepository {
   Future<ApiResponse<CharacterList>> getRickAndMortyCharacters(
       int page, bool isLoadMore);
   Future<ApiResponse<Character>>? getRickAndMortyCharacter(int id);
-  Future<ApiResponse<void>> updateChar(Character character);
+  Future<ApiResponse<void>> updateFavouriteCharater(Character character);
   Future<ApiResponse<CharacterList>> getFavouriteCharactersList(int page);
 }

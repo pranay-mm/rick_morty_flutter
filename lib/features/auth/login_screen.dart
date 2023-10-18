@@ -33,7 +33,7 @@ class LoginScreenState extends ConsumerState<LoginScreen> {
       next.maybeWhen(
         orElse: () => null,
         authenticated: (user) {
-          pref.isUserLoggedIn = true;
+          pref.userLoggedInFlag = true;
           Navigator.of(context).push(FadeRoute(page: const DashboardPage()));
         },
         unauthenticated: (message) {

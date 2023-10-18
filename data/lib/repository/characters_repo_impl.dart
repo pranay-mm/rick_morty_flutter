@@ -59,8 +59,8 @@ class CharactersRepositoryImpl implements CharactersRepository {
   }
 
   @override
-  Future<ApiResponse<void>> updateChar(Character character) async {
-    await charsDao.updateChar(charMapper.mapToData(character));
+  Future<ApiResponse<void>> updateFavouriteCharater(Character character) async {
+    await charsDao.updateFavouriteCharater(charMapper.mapToData(character));
     return Success(data: null);
   }
 

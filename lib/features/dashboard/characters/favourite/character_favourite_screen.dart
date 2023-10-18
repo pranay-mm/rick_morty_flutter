@@ -36,57 +36,42 @@ class _CharacterListScreenState
       if (listItem.isEmpty) {
         return errorWidget();
       }
+      final count = listItem.length;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.only(top: 8),
-              child: FutureBuilder<bool>(
-                future: delay(),
-                builder: (
-                  BuildContext context,
-                  AsyncSnapshot<bool> snapshot,
-                ) {
-                  final count = listItem.length;
-
-                  return ListView.separated(
-                    itemCount: count,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const SizedBox(
-                      height: 12,
-                    ),
-                    key: const Key('favcharacterListView'),
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(8),
-                    physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return CharacterItemWidget(
-                        key: Key('characterItem:$index'),
-                        callback: (characterId) async {
-                          ref.read(idProider.notifier).updateState(characterId);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (builder) =>
-                                      CharacterInfoPage(charId: characterId)));
-                        },
-                        character: listItem[index],
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
+                padding: const EdgeInsets.only(top: 8),
+                child: ListView.separated(
+                  itemCount: count,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(
+                    height: 12,
+                  ),
+                  key: const Key('favcharacterListView'),
+                  shrinkWrap: true,
+                  padding: const EdgeInsets.all(8),
+                  physics: const BouncingScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return CharacterItemWidget(
+                      key: Key('characterItem:$index'),
+                      callback: (characterId) async {
+                        ref.read(idProider.notifier).updateState(characterId);
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (builder) =>
+                                    CharacterInfoPage(charId: characterId)));
+                      },
+                      character: listItem[index],
+                    );
+                  },
+                )),
           )
         ],
       );
     }
-  }
-
-  Future<bool> delay() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 100));
-    return true;
   }
 
   Widget errorWidget() {

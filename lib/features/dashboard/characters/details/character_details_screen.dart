@@ -149,12 +149,16 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                   ?.copyWith(color: context.colorScheme.primary),
             ),
             const SizedBox(height: 14),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                  width: context.width / 4.6,
-                  child: Text(
+            Table(
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+              border: TableBorder.all(width: 22, style: BorderStyle.none),
+              columnWidths: {
+                0: FlexColumnWidth(context.width / 4),
+                1: FlexColumnWidth(context.width - (context.width / 4))
+              },
+              children: [
+                TableRow(children: [
+                  Text(
                     '${S.of(context).status}:',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -163,109 +167,73 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                       color: context.colorScheme.onPrimaryContainer,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(status,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 14,
-                        letterSpacing: 0.27,
-                      )),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: context.width / 4.6,
-                  child: Text('${S.of(context).species}:',
+                  Expanded(
+                    child: Text(status,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                          letterSpacing: 0.27,
+                        )),
+                  ),
+                ]),
+                TableRow(children: [
+                  Text('${S.of(context).species}:',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                         letterSpacing: 0.27,
                         color: context.colorScheme.onPrimaryContainer,
                       )),
-                ),
-                Expanded(
-                    child: Text(
-                  species,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14,
-                    letterSpacing: 0.27,
-                  ),
-                )),
-                const SizedBox(height: 16),
-              ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: context.width / 4.6,
-                  child: Text('${S.of(context).gender}:',
+                  Expanded(
+                      child: Text(
+                    species,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 14,
+                      letterSpacing: 0.27,
+                    ),
+                  )),
+                ]),
+                TableRow(children: [
+                  Text('${S.of(context).gender}:',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 16,
                         letterSpacing: 0.27,
                         color: context.colorScheme.onPrimaryContainer,
                       )),
-                ),
-                Expanded(
-                    child: Text(
-                  gender,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14,
-                    letterSpacing: 0.27,
+                  Expanded(
+                      child: Text(
+                    gender,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 14,
+                      letterSpacing: 0.27,
+                    ),
+                  )),
+                ]),
+                TableRow(children: [
+                  Text(
+                    '${S.of(context).origin}:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      letterSpacing: 0.27,
+                      color: context.colorScheme.onPrimaryContainer,
+                    ),
                   ),
-                )),
-              ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    width: context.width / 4.6,
-                    child: Text(
-                      '${S.of(context).origin}:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        letterSpacing: 0.27,
-                        color: context.colorScheme.onPrimaryContainer,
-                      ),
-                    )),
-                Expanded(
-                    child: Text(
-                  origin,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 14,
-                    letterSpacing: 0.27,
-                  ),
-                )),
-              ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  width: context.width / 4.6,
-                  child: Text(
+                  Expanded(
+                      child: Text(
+                    origin,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 14,
+                      letterSpacing: 0.27,
+                    ),
+                  )),
+                ]),
+                TableRow(children: [
+                  Text(
                     '${S.of(context).location}:',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -274,45 +242,37 @@ class _CharacterInfoWidgetState extends ConsumerState<CharacterInfoPage> {
                       color: context.colorScheme.onPrimaryContainer,
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Text(location,
+                  Expanded(
+                    child: Text(location,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w300,
+                          fontSize: 14,
+                          letterSpacing: 0.27,
+                        )),
+                  ),
+                ]),
+                TableRow(children: [
+                  Text(
+                    '${S.of(context).episodes}:',
+                    overflow: TextOverflow.visible,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                      letterSpacing: 0.27,
+                      color: context.colorScheme.onPrimaryContainer,
+                    ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      episodes,
                       style: const TextStyle(
                         fontWeight: FontWeight.w300,
                         fontSize: 14,
                         letterSpacing: 0.27,
-                      )),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 12,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                    width: context.width / 4.6,
-                    child: Text(
-                      '${S.of(context).episodes}:',
-                      overflow: TextOverflow.visible,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                        letterSpacing: 0.27,
-                        color: context.colorScheme.onPrimaryContainer,
                       ),
-                    )),
-                Expanded(
-                  child: Text(
-                    episodes,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      letterSpacing: 0.27,
                     ),
                   ),
-                ),
+                ]),
               ],
             ),
           ],

@@ -24,8 +24,8 @@ class SharedPreferencesService {
   set isOnBoardingShown(bool value) => _saveData(_kOnBoardingShowKey, value);
 
   // Persist and retrieve user login flag value
-  bool get isUserLoggedIn => _getData(_kUserLoggedInKey) ?? false;
-  set isUserLoggedIn(bool value) => _saveData(_kUserLoggedInKey, value);
+  bool get userLoggedInFlag => _getData(_kUserLoggedInKey) ?? false;
+  set userLoggedInFlag(bool value) => _saveData(_kUserLoggedInKey, value);
 
   // Persist and retrieve theme flag
   bool get themeFlagKey => _getData(_kThemFlagKey) ?? true;
@@ -47,16 +47,17 @@ class SharedPreferencesService {
     debugPrint('Saving $key: $value');
 
     // Save data to shared preferences
-    if (value is String) {
-      _preferences.setString(key, value);
-    } else if (value is int) {
-      _preferences.setInt(key, value);
-    } else if (value is double) {
-      _preferences.setDouble(key, value);
-    } else if (value is bool) {
-      _preferences.setBool(key, value);
-    } else if (value is List<String>) {
-      _preferences.setStringList(key, value);
+    switch (value) {
+      case String():
+        _preferences.setString(key, value);
+      case int():
+        _preferences.setInt(key, value);
+      case double():
+        _preferences.setDouble(key, value);
+      case bool():
+        _preferences.setBool(key, value);
+      case List<String>():
+        _preferences.setStringList(key, value);
     }
   }
 }

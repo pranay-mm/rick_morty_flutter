@@ -33,71 +33,64 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       );
     } else if (state is Failure) {
       return Align(
-        child: Text((state as Failure).exception),
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Text((state as Failure).exception),
+        ),
       );
     } else {
       final listItem = (state as Success).data as List<UiCharacter>;
       if (listItem.isEmpty) {
         return errorWidget();
       }
+      final count = listItem.length;
       return Stack(children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Flexible(
               child: Padding(
-                padding: const EdgeInsets.only(top: 8),
-                child: FutureBuilder<bool>(
-                  future: delay(),
-                  builder: (
-                    BuildContext context,
-                    AsyncSnapshot<bool> snapshot,
-                  ) {
-                    final count = listItem.length;
-
-                    return NotificationListener<ScrollNotification>(
-                      onNotification: (scrollNotification) {
-                        if (scrollNotification.metrics.pixels ==
-                            scrollNotification.metrics.maxScrollExtent) {
-                          if (!readState.isPageLoadInProgress) {
-                            readState
-                              ..loadCharacters(true)
-                              ..isPageLoadInProgress = true;
-                          }
+                  padding: const EdgeInsets.only(top: 8),
+                  child: NotificationListener<ScrollNotification>(
+                    onNotification: (scrollNotification) {
+                      if (scrollNotification.metrics.pixels ==
+                          scrollNotification.metrics.maxScrollExtent) {
+                        if (!readState.isPageLoadInProgress) {
+                          readState
+                            ..loadCharacters(true)
+                            ..isPageLoadInProgress = true;
                         }
-                        return false;
-                      },
-                      child: ListView.separated(
-                        itemCount: count,
-                        separatorBuilder: (BuildContext context, int index) =>
-                            const SizedBox(
-                          height: 12,
-                        ),
-                        key: const Key('characterListView'),
-                        shrinkWrap: true,
-                        padding: const EdgeInsets.all(8),
-                        physics: const BouncingScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return CharacterItemWidget(
-                            key: Key('characterItem:$index'),
-                            callback: (characterId) {
-                              ref
-                                  .read(idProider.notifier)
-                                  .updateState(characterId);
-                              Navigator.push(
-                                  context,
-                                  FadeRoute(
-                                      page: CharacterInfoPage(
-                                          charId: characterId)));
-                            },
-                            character: listItem[index],
-                          );
-                        },
+                      }
+                      return false;
+                    },
+                    child: ListView.separated(
+                      itemCount: count,
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const SizedBox(
+                        height: 12,
                       ),
-                    );
-                  },
-                ),
-              ),
+                      key: const Key('characterListView'),
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.all(8),
+                      physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return CharacterItemWidget(
+                          key: Key('characterItem:$index'),
+                          callback: (characterId) {
+                            ref
+                                .read(idProider.notifier)
+                                .updateState(characterId);
+                            Navigator.push(
+                                context,
+                                FadeRoute(
+                                    page: CharacterInfoPage(
+                                        charId: characterId)));
+                          },
+                          character: listItem[index],
+                        );
+                      },
+                    ),
+                  )),
             )
           ],
         ),
@@ -109,11 +102,6 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
         ),
       ]);
     }
-  }
-
-  Future<bool> delay() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 100));
-    return true;
   }
 
   Widget errorWidget() {
