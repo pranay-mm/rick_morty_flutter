@@ -6,6 +6,8 @@ import 'package:rick_morty_flutter/core/extensions.dart';
 import 'package:rick_morty_flutter/core/provider/app_theme_provider.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/auth/provider/authentication_provider.dart';
+import 'package:rick_morty_flutter/generated/l10n.dart';
+import 'package:rick_morty_flutter/main.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   static const String id = 'setting_screen';
@@ -40,17 +42,20 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   value: pref.themeFlagKey,
                   onChanged: (value) {
                     setState(() {
+                      LocaleNotifier.instance.switchLocale();
                       ref.read(appThemeProvider.notifier).state = value;
                       pref.themeFlagKey = value;
                     });
                   }),
               title: Text(
-                'Theme',
+                S.of(context).theme,
                 style: Theme.of(context).textTheme.titleSmall?.copyWith(
                     color: Theme.of(context).colorScheme.onBackground),
               ),
               subtitle: Text(
-                pref.themeFlagKey ? 'Dark Mode' : 'Light Mode',
+                pref.themeFlagKey
+                    ? S.of(context).dark_theme
+                    : S.of(context).light_theme,
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.onBackground),
@@ -116,7 +121,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: context.textTheme.labelLarge
                       ?.copyWith(color: context.colorScheme.error)),
               onPressed: () {
-                pref.isUserLoggedIn = false;
+                pref.userLoggedInFlag = false;
                 pref.isOnBoardingShown = false;
                 ref.read(authNotifierProvider.notifier).logOut();
                 Navigator.pop(context);

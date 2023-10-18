@@ -33,7 +33,10 @@ class _CharacterListScreenState extends ConsumerState<CharacterListScreen> {
       );
     } else if (state is Failure) {
       return Align(
-        child: Text((state as Failure).exception),
+        child: Padding(
+          padding: const EdgeInsets.all(22.0),
+          child: Text((state as Failure).exception),
+        ),
       );
     } else {
       final listItem = (state as Success).data as List<UiCharacter>;

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:data/generated/l10n.dart' as data;
+import 'package:data/generated/intl/messages_all.dart' as messages;
 import 'package:data/service/shared_pref_service.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:domain/repository/characters_repo.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get_it/get_it.dart';
+import 'package:multiple_localization/multiple_localization.dart';
 import 'package:rick_morty_flutter/core/provider/app_theme_provider.dart';
 import 'package:rick_morty_flutter/features/auth/login_screen.dart';
 import 'package:rick_morty_flutter/features/dashboard/characters/list/character_list_screen.dart';
@@ -15,6 +18,7 @@ import 'package:rick_morty_flutter/features/dashboard/dashboard_screen.dart';
 import 'package:rick_morty_flutter/features/settings/setting_screen.dart';
 import 'package:rick_morty_flutter/injectable_config.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'generated/intl/messages_all.dart';
 import 'generated/l10n.dart';
 import 'features/onboarding/onboarding_screen.dart';
 import 'firebase_options.dart';
@@ -39,14 +43,18 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final pref = GetIt.I.get<SharedPreferencesService>();
     return MaterialApp(
-      locale: DevicePreview.locale(context),
-      localizationsDelegates: const [
-        S.delegate,
+      locale: LocaleNotifier.instance.value,
+      localizationsDelegates: [
+        _appLocalizationsDelegate,
+        _dataLocalizationsDelegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: S.delegate.supportedLocales,
+      supportedLocales: <Locale>{
+        ...data.S.delegate.supportedLocales,
+        ...S.delegate.supportedLocales
+      },
       title: 'Rick and Morty',
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
@@ -105,7 +113,71 @@ class MyApp extends ConsumerWidget {
       },
       home: !pref.isOnBoardingShown
           ? const OnBoardingScreen()
-          : (pref.isUserLoggedIn ? const DashboardPage() : const LoginScreen()),
+          : (pref.userLoggedInFlag
+              ? const DashboardPage()
+              : const LoginScreen()),
     );
+  }
+}
+
+class _LocalizationsDelegate<T> extends LocalizationsDelegate<T> {
+  _LocalizationsDelegate({
+    required this.isLocaleSupported,
+    required this.initializeMessages,
+    required this.builder,
+  });
+
+  bool Function(Locale locale) isLocaleSupported;
+  Future<bool> Function(String) initializeMessages;
+  FutureOr<T> Function(String locale) builder;
+
+  @override
+  bool isSupported(Locale locale) => isLocaleSupported(locale);
+
+  @override
+  Future<T> load(Locale locale) {
+    return MultipleLocalizations.load(
+      initializeMessages,
+      locale,
+      builder,
+      setDefaultLocale: true,
+    );
+  }
+
+  @override
+  bool shouldReload(LocalizationsDelegate<T> old) => false;
+}
+
+LocalizationsDelegate<data.S> _dataLocalizationsDelegate =
+    _LocalizationsDelegate(
+  isLocaleSupported: data.S.delegate.isSupported,
+  initializeMessages: messages.initializeMessages,
+  builder: (locale) async {
+    await data.S.load(Locale(locale));
+    return data.S();
+  },
+);
+
+LocalizationsDelegate<S> _appLocalizationsDelegate = _LocalizationsDelegate(
+  isLocaleSupported: S.delegate.isSupported,
+  initializeMessages: initializeMessages,
+  builder: (locale) async {
+    await S.load(Locale(locale));
+    return S();
+  },
+);
+
+class LocaleNotifier extends ValueNotifier<Locale> {
+  static const _localeEn = Locale('en');
+  static const _localeEs = Locale('es');
+
+  static final instance = LocaleNotifier._(_localeEn);
+
+  LocaleNotifier._(super.value);
+
+  Locale get _next => value == _localeEn ? _localeEs : _localeEn;
+
+  void switchLocale() {
+    value = _next;
   }
 }

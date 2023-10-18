@@ -22,12 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "dark_theme": MessageLookupByLibrary.simpleMessage("Modo oscuro"),
-        "light_theme": MessageLookupByLibrary.simpleMessage("Modo de luz"),
-        "theme": MessageLookupByLibrary.simpleMessage("Tema"),
-        "titleTabCharFavList":
-            MessageLookupByLibrary.simpleMessage("Favoritas"),
-        "titleTabCharList":
-            MessageLookupByLibrary.simpleMessage("Selecciona personaje")
+        "errorDioCancel": MessageLookupByLibrary.simpleMessage(
+            "Request to API server was cancelled")
       };
 }

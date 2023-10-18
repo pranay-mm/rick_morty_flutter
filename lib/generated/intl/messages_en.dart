@@ -28,6 +28,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Authentication"),
         "authenticationInfo": MessageLookupByLibrary.simpleMessage(
             "Pickle Rick is the only one who can crack your password. So don’t worry, and enter your credentials."),
+        "dark_theme": MessageLookupByLibrary.simpleMessage("Dark Mode"),
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "emailHelperText": MessageLookupByLibrary.simpleMessage(
             "It\'s the key to your portal gun!"),
@@ -37,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "error_message": MessageLookupByLibrary.simpleMessage(
             "Something went wrong! Please try again."),
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
+        "light_theme": MessageLookupByLibrary.simpleMessage("Light Mode"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
         "origin": MessageLookupByLibrary.simpleMessage("Origin"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -54,6 +56,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "tabLableCharacters":
             MessageLookupByLibrary.simpleMessage("Characters"),
         "tabLableFavorite": MessageLookupByLibrary.simpleMessage("Favourite"),
+        "theme": MessageLookupByLibrary.simpleMessage("Theme"),
         "titleTabCharFavList":
             MessageLookupByLibrary.simpleMessage("Favourites"),
         "titleTabCharList":

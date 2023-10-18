@@ -24,6 +24,8 @@
     "episodes":"Episodes",
     "location":"Location",
     "error_message":"Something went wrong! Please try again.",
-    "empty_favourite_screen":"Your favourite list is empty!"
-    
+    "empty_favourite_screen":"Your favourite list is empty!",
+    "theme":"Theme",
+    "dark_theme":"Dark Mode",
+    "light_theme":"Light Mode"
 }

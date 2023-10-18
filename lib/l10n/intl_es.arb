@@ -1,4 +1,7 @@
 {
     "titleTabCharList": "Selecciona personaje",
-    "titleTabCharFavList": "Favoritas"
+    "titleTabCharFavList": "Favoritas",
+    "theme": "Tema",
+    "dark_theme": "Modo oscuro",
+    "light_theme": "Modo de luz"
 }
